@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Habits</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="habits.css">
+</head>
+
+<body>
+
+<div class="top-bar">
+    <div class="title-section">
+        <h1>📖 Eunoia</h1>
+    </div>
+
+    <div class="nav">
+        <div class="back-arrow" onclick="history.back()">⬅️</div>
+        <a href="journal.html">✍️ Journal</a>
+        <a href="todo.html">☑️ To Do</a>
+        <a href="habits.html" class="active">🎯 Habits</a>
+        <a href="mood.html">😊 Mood</a>
+    </div>
+</div>
+
+<p class="page-subtitle">Build consistency, track progress daily</p>
+
+<div class="habits-wrapper">
+
+    <!-- HABIT TRACKER -->
+    <div class="card habits-card">
+        <h2>Habit Tracker</h2>
+
+        <div class="input-row">
+            <input type="text" id="habitInput" placeholder="Add a new habit...">
+            <button type="button" class="add-btn">Add</button>
+        </div>
+
+        <div id="habitList" class="habit-list"></div>
+    </div>
+
+    <!-- HABIT HISTORY -->
+    <div class="card habits-card history-card">
+        <h2>Habit History</h2>
+
+        <div id="habitHistory"></div>
+
+        <div class="legend">
+            <span class="dot completed"></span> Completed
+            <span class="dot not-completed"></span> Not completed
+        </div>
+    </div>
+
+</div>
+
+<script src="habits.js"></script>
+</body>
+</html>

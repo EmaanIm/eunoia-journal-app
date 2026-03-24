@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Journal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="title-section">
+            <h1>📖 Eunoia</h1>
+            <p style>Capture your thoughts, reflect on your day</p>
+        </div>
+
+        <div class="nav">
+            <div class="back-arrow" onclick="history.back()">⬅️</div>
+            <a href="journal.html" class="active">✍️ Journal</a>
+            <a href="todo.html">☑️ To Do</a>
+            <a href="habits.html">🎯 Habits</a>
+            <a href="mood.html">😊 Mood</a>
+        </div>
+    </div>
+
+    <div class="journal-container">
+        
+        <!-- LEFT SIDE PROMPTS -->
+        <div class="prompts">
+            <h2>Prompts</h2>
+
+            <div class="prompt" onclick="startEntry('How do I feel right now?')">
+                🤔 How do I feel right now?
+            </div>
+
+            <div class="prompt" onclick="startEntry('What stressed me out today?')">
+                😰 What stressed me out today?
+            </div>
+
+            <div class="prompt" onclick="startEntry('What went well today?')">
+                ✨ What went well today?
+            </div>
+
+            <div class="prompt" onclick="startEntry('Why am I unhappy?')">
+                😔 Why am I unhappy?
+            </div>
+
+            <div class="prompt" onclick="startEntry('What I am grateful for?')">
+                🙏 What I am grateful for?
+            </div>
+
+            <div class="prompt" onclick="startEntry('What should I do differently tomorrow?')">
+                ☁️ What should I do differently tomorrow?
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE ENTRY AREA -->
+        <div class="entry-area">
+            <h3 id="entryTitle">Select an entry to view or create a new one</h3>
+            <textarea id="journalText"></textarea>
+            <button onclick="saveEntry()">Save Entry</button>
+
+            <div class="past-entries">
+                <h3>Past Entries</h3>
+                <div id="entriesList"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="journal.js"></script>
+</body>
+</html>

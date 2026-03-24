@@ -1,0 +1,101 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Eunoia | Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- PAGE WRAPPER FOR FLEXBOX CENTERING -->
+  <div class="login-page">
+    <!-- BRAND / HEADER -->
+    <header class="brand">
+      <span class="logo">📖</span>
+      <h1>Eunoia</h1>
+      <p>Welcome back</p>
+    </header>
+
+    <!-- LOGIN CARD -->
+    <main class="login-card card">
+      <h2>Login</h2>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm" method="POST" action="/login">
+        <label for="email">Email</label>
+        <div class="input-group">
+          <span class="icon">✉️</span>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+
+        <label for="password">Password</label>
+        <div class="input-group">
+          <span class="icon">🔒</span>
+          <input type="password" id="password" name="password" placeholder="••••••••" required />
+          <span class="icon toggle" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <button type="submit">Login</button>
+      </form>
+
+      <p class="footer-text">
+        Don’t have an account?
+        <a href="#" onclick="showSignup()">Sign Up</a>
+      </p>
+    </main>
+
+    <!-- SIGNUP CARD (HIDDEN BY DEFAULT) -->
+    <main class="signup-card card" style="display:none;">
+      <h2>Sign Up</h2>
+
+      <form id="signupForm" method="POST" action="/register">
+        <label for="name">Name</label>
+        <div class="input-group">
+          <span class="icon">👤</span>
+          <input type="text" id="name" name="name" placeholder="Your Name" required />
+        </div>
+
+        <label for="email-signup">Email</label>
+        <div class="input-group">
+          <span class="icon">✉️</span>
+          <input type="email" id="email-signup" name="email" placeholder="your@email.com" required />
+        </div>
+
+        <label for="password-signup">Password</label>
+        <div class="input-group">
+          <span class="icon">🔒</span>
+          <input type="password" id="password-signup" name="password" placeholder="••••••••" required />
+          <span class="icon toggle" onclick="togglePassword('password-signup')">👁️</span>
+        </div>
+
+        <button type="submit">Sign Up</button>
+      </form>
+
+      <p class="footer-text">
+        Already have an account?
+        <a href="#" onclick="showLogin()">Login</a>
+      </p>
+    </main>
+  </div>
+
+  <script>
+    // PASSWORD TOGGLE FUNCTION
+    function togglePassword(fieldId = 'password') {
+      const pass = document.getElementById(fieldId);
+      pass.type = pass.type === 'password' ? 'text' : 'password';
+    }
+
+    // TOGGLE BETWEEN LOGIN AND SIGNUP
+    function showSignup() {
+      document.querySelector('.login-card').style.display = 'none';
+      document.querySelector('.signup-card').style.display = 'block';
+    }
+
+    function showLogin() {
+      document.querySelector('.signup-card').style.display = 'none';
+      document.querySelector('.login-card').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
+<script src="script.js"></script>

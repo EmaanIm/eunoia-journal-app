@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>☑️ To Do</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="todo.css">
+<body class="todo-page">
+</head>
+<body class="todo-page">
+
+    <div class="top-bar">
+        <div class="title-section">
+            <h1>📖 Eunoia</h1>
+            <p style>Capture your thoughts, reflect on your day</p>
+        </div>
+        <div class="nav">
+            <div class="back-arrow" onclick="history.back()">⬅️</div>
+            <a href="journal.html">✍️ Journal</a>
+            <a href="todo.html" class="active">☑️ To Do</a>
+            <a href="habits.html">🎯 Habits</a>
+            <a href="mood.html">😊 Mood</a>
+        </div>
+    </div>
+    <!-- Wrap main content and sidebar together -->
+    <div class="content">
+        <!-- Main card (your todo input + list) -->
+        <div class="main-card">
+            <h2>To Do</h2>
+    
+            <div class="input-row">
+                <input type="text" id="taskInput" placeholder="Add a task...">
+                <input type="date" id="deadlineInput">
+                <button onclick="addTask()">+</button>
+            </div>
+    
+            <div class="filter">
+                <span>Filter by priority:</span>
+                <button onclick="filterTasks('all')" class="active">All</button>
+                <button onclick="filterTasks('!!!')">!!!</button>
+                <button onclick="filterTasks('!!')">!!</button>
+                <button onclick="filterTasks('!')">!</button>
+            </div>
+    
+            <div id="taskList"></div>
+        </div>
+    
+        <!-- Sidebar cards -->
+        <div class="sidebar-cards">
+            <!-- You can add quick stats, recent tasks, or floating info cards here -->
+            <div class="card">
+                <h2>Tasks Today</h2>
+                <p>3 tasks pending</p>
+            </div>
+            <div class="card">
+                <h2>Upcoming Deadlines</h2>
+                <p>2 tasks due tomorrow</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="todo.js"></script>
+    </body>    
+</html>

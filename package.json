@@ -1,0 +1,26 @@
+{
+  "name": "eunoia-journal-app",
+  "version": "1.0.0",
+  "description": "A journalling app designed to support emotional regulation and executive dysfunction in neurodivergent individuals.",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmaanIm/eunoia-journal-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EmaanIm/eunoia-journal-app/issues"
+  },
+  "homepage": "https://github.com/EmaanIm/eunoia-journal-app#readme"
+}

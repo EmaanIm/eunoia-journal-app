@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Journal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>📖Eunoia</h1>
+  <p>Capture your thoughts, reflect on your day</p>
+
+  <div class="dashboard">
+    <div class="card" onclick="goTo('journal.html')">
+      <h2>✍️ Journal</h2>
+      <p>Capture your thoughts</p>
+    </div>
+
+    <div class="card" onclick="goTo('todo.html')">
+      <h2>☑️ To Do</h2>
+      <p>Manage your tasks</p>
+    </div>
+
+    <div class="card" onclick="goTo('habits.html')">
+      <h2>🎯 Habits</h2>
+      <p>Track your progress</p>
+    </div>
+
+    <div class="card" onclick="goTo('mood.html')">
+      <h2>😊 Mood</h2>
+      <p>Log how you feel</p>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

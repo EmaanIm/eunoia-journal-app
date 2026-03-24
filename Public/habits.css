@@ -1,0 +1,195 @@
+/* =========================
+   PAGE LAYOUT
+========================= */
+
+.page-subtitle {
+    margin-left: 60px;
+    color: #8a9aa6;
+    margin-top: -10px;
+}
+
+.habits-wrapper {
+    max-width: 1000px;
+    margin: 40px auto 80px auto;
+    padding: 0 60px; /* match top-bar */
+}
+
+/* Override global card width */
+.habits-card {
+    width: 100% !important;
+    border-radius: 18px;
+}
+
+/* Space between tracker and history */
+.history-card {
+    margin-top: 40px;
+}
+
+/* =========================
+   ADD HABIT SECTION
+========================= */
+
+.input-row {
+    display: flex;
+    gap: 14px;
+    align-items: stretch; /* THIS makes button match input height */
+    margin-bottom: 32px;
+}
+
+.input-row input {
+    flex: 1;
+    padding: 16px;
+    border-radius: 14px;
+    border: none;
+    background: #f2f2f2;
+    font-size: 0.95rem;
+    outline: none;
+    color: #3a4a57;
+}
+
+/* Button matches input height automatically */
+.habits-card .add-btn {
+    all: unset;
+    background-color: #8ea0ad;
+    color: white;
+    padding: 0 20px; /* horizontal only */
+    border-radius: 14px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Override global button width */
+.add-btn {
+    width: auto !important;
+    padding: 8px 18px !important;   /* smaller vertical + horizontal */
+    border-radius: 12px;
+    font-size: 0.9rem;
+    margin-top: 0 !important;
+    align-self: center;
+}
+
+/* =========================
+   HABIT LIST
+========================= */
+
+.habit-list {
+    margin-top: 10px;
+}
+
+.habit-item {
+    background: #f2f2f2;
+    padding: 20px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.habit-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.habit-left input {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
+/* small icon buttons */
+.actions button {
+    width: auto;
+    padding: 6px 10px;
+    background: transparent;
+    box-shadow: none;
+    color: #7b8c97;
+}
+
+/* =========================
+   HISTORY TABLE
+========================= */
+
+.history-row {
+    display: grid;
+    grid-template-columns: 240px repeat(7, 40px) 60px;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.history-header {
+    font-weight: 600;
+    color: #4f6475;
+    margin-bottom: 25px;
+}
+
+.day {
+    text-align: center;
+    font-size: 12px;
+    color: #8a9aa6;
+}
+
+.circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #f2f2f2;
+    margin: auto;
+}
+
+.circle.completed {
+    background: #9cad97;
+}
+
+.streak {
+    text-align: center;
+    background: #f2f2f2;
+    padding: 6px;
+    border-radius: 50%;
+    width: 36px;
+    margin: auto;
+    font-weight: 500;
+}
+
+.legend {
+    margin-top: 30px;
+    display: flex;
+    gap: 25px;
+    color: #8a9aa6;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.completed {
+    background: #9cad97;
+}
+
+.dot.not-completed {
+    background: #f2f2f2;
+}
+/* FORCE small add button */
+.habits-card .add-btn {
+    all: unset;                 /* removes ALL global button styles */
+    background-color: #8ea0ad;
+    color: white;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.habits-card .add-btn:hover {
+    background-color: #7e919e;
+}

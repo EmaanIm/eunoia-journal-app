@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>😊 Mood</title>
+
+<link rel="stylesheet" href="styles.css"> 
+<link rel="stylesheet" href="mood.css">
+</head>
+
+<body>
+
+<!-- =========================
+     TOP BAR (CONSISTENT)
+========================= -->
+<div class="top-bar">
+    <div class="title-section">
+        <h1>📖 Eunoia</h1>
+    </div>
+
+    <div class="nav">
+        <div class="back-arrow" onclick="history.back()">⬅️</div>
+        <a href="journal.html">✍️ Journal</a>
+        <a href="todo.html">☑️ To Do</a>
+        <a href="habits.html">🎯 Habits</a>
+        <a href="mood.html" class="active mood-active">😊 Mood</a>
+    </div>
+</div>
+
+<p class="page-subtitle">Check in with yourself gently</p>
+
+<div class="mood-wrapper">
+
+    <!-- =========================
+         MOOD TRACKER
+    ========================= -->
+    <div class="card mood-card">
+        <h2>Mood Tracker</h2>
+        <p class="question">How are you feeling today?</p>
+
+        <div class="mood-grid">
+            <div class="mood-option" data-mood="Happy">😊<span>Happy</span></div>
+            <div class="mood-option" data-mood="Peaceful">😌<span>Peaceful</span></div>
+            <div class="mood-option" data-mood="Excited">🤩<span>Excited</span></div>
+            <div class="mood-option" data-mood="Reflective">🤔<span>Reflective</span></div>
+            <div class="mood-option" data-mood="Sad">😔<span>Sad</span></div>
+            <div class="mood-option" data-mood="Anxious">😰<span>Anxious</span></div>
+            <div class="mood-option" data-mood="Grateful">🙏<span>Grateful</span></div>
+            <div class="mood-option" data-mood="Tired">😴<span>Tired</span></div>
+        </div>
+
+        <!-- Reflection Box (Hidden Until Click) -->
+        <div class="reflection-box" id="reflectionBox">
+            <h3 id="selectedMoodTitle"></h3>
+            <textarea id="moodNote" placeholder="Want to expand on how you're feeling? (optional)"></textarea>
+            <button class="save-mood-btn">Log Mood</button>
+        </div>
+    </div>
+
+    <!-- =========================
+         MOOD HISTORY
+    ========================= -->
+    <div class="card mood-card">
+        <h2>Mood History</h2>
+        <div id="moodHistory"></div>
+    </div>
+
+</div>
+
+<script src="mood.js"></script>
+</body>
+</html>
