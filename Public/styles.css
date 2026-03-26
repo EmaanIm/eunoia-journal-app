@@ -940,3 +940,275 @@ input[type="range"] {
     flex-direction: column;
     gap: 12px;
 }
+/* =====================================================
+   DASHBOARD 2x2 GRID FIX
+   ===================================================== */
+
+/* 1. Force the container to allow the grid to breathe */
+.dashboard-page .journal-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    padding: 40px 20px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+}
+
+/* 2. Force the 2x2 Layout */
+.dashboard-page .dashboard-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important; /* This creates the 2 columns */
+    gap: 25px !important;
+    width: 100% !important;
+    max-width: 900px !important;
+}
+
+/* =====================================================
+   DASHBOARD CARD ALIGNMENT FIX (COMPLETE)
+   ===================================================== */
+
+   .dashboard-page .main-nav-card {
+    display: flex !important;
+    align-items: center !important; /* Centers icon and text vertically */
+    justify-content: flex-start !important; 
+    gap: 25px !important; /* Space between emoji and text */
+    padding: 35px !important; 
+    background: var(--card-bg) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow) !important;
+    cursor: pointer !important;
+    transition: transform 0.3s ease, border-color 0.3s ease !important;
+}
+
+.dashboard-page .main-nav-card:hover {
+    transform: translateY(-5px) !important;
+    border: 1px solid var(--accent-blue) !important;
+}
+
+/* 1. This makes the Emojis large and centers them */
+.dashboard-page .main-nav-card .card-icon {
+    font-size: 2.8rem !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 60px !important; /* Keeps text starting at the same spot on every card */
+    line-height: 1 !important;
+}
+
+/* 2. This ensures the Title and Subtitle stay stacked and centered */
+.dashboard-page .main-nav-card .card-content {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+.dashboard-page .main-nav-card h2 {
+    margin: 0 !important; 
+    font-size: 1.6rem !important; 
+    color: var(--text-main);
+    border: none !important; /* Removes any sidebar heading lines */
+}
+
+.dashboard-page .main-nav-card p {
+    margin: 4px 0 0 0 !important;
+    font-size: 0.95rem !important;
+    color: var(--text-muted);
+}
+
+/* 4. Responsive: Drop to 1 column ONLY on mobile phones */
+@media (max-width: 600px) {
+    .dashboard-page .dashboard-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+/* =====================================================
+   DASHBOARD MINI-CARDS & TOOLS
+   ===================================================== */
+
+   .mini-card {
+    padding: 15px 20px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80px;
+}
+
+.energy-btn, .fix-btn {
+    flex: 1;
+    background: var(--bg-color);
+    border: 1px solid #e8e2da;
+    border-radius: 10px;
+    padding: 8px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.energy-btn:hover, .fix-btn:hover {
+    background: white;
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+}
+
+.energy-btn.active {
+    background: var(--accent-green);
+    border-color: #8ea689;
+    filter: brightness(1.1);
+}
+
+@media (max-width: 800px) {
+    .status-row {
+        grid-template-columns: 1fr !important; /* Stack on mobile */
+    }
+}
+.mini-card {
+    padding: 20px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100px;
+    box-sizing: border-box;
+}
+
+.energy-btn {
+    flex: 1;
+    background: var(--bg-color);
+    border: 1px solid #e8e2da;
+    border-radius: 10px;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.energy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+/* =====================================================
+   LOGIN & SIGNUP PAGE STYLING
+   ===================================================== */
+
+/* Centers the entire content on the screen */
+body:has(.login-page) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+}
+
+.login-page {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+}
+
+.brand {
+    margin-bottom: 30px;
+}
+
+.brand .logo {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.brand h1 {
+    font-size: 2.2rem;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.brand p {
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+/* Form Card Styling */
+.login-card, .signup-card {
+    text-align: left;
+    padding: 40px !important;
+}
+
+.login-card h2, .signup-card h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    color: var(--text-main);
+    border: none !important;
+}
+
+/* Input Group Styling */
+.input-group {
+    display: flex;
+    align-items: center;
+    background: var(--input-bg);
+    border-radius: var(--radius-md);
+    padding: 5px 15px;
+    margin-bottom: 20px;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.input-group:focus-within {
+    border-color: var(--accent-blue);
+    background: white;
+}
+
+.input-group .icon {
+    font-size: 1.1rem;
+    margin-right: 10px;
+    opacity: 0.7;
+}
+
+.input-group input {
+    border: none;
+    background: transparent;
+    padding: 12px 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-main);
+    outline: none;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    margin-left: 5px;
+}
+
+/* Button & Footer Styling */
+.login-page button {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1rem;
+    padding: 14px;
+}
+
+.footer-text {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.footer-text a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer-text a:hover {
+    text-decoration: underline;
+}
+
+.icon.toggle {
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 0;
+}

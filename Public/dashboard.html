@@ -2,35 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Journal</title>
+    <title>Eunoia | Dashboard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <h1>📖Eunoia</h1>
-  <p>Capture your thoughts, reflect on your day</p>
-
-  <div class="dashboard">
-    <div class="card" onclick="goTo('journal.html')">
-      <h2>✍️ Journal</h2>
-      <p>Capture your thoughts</p>
-    </div>
-
-    <div class="card" onclick="goTo('todo.html')">
-      <h2>☑️ To Do</h2>
-      <p>Manage your tasks</p>
-    </div>
-
-    <div class="card" onclick="goTo('habits.html')">
-      <h2>🎯 Habits</h2>
-      <p>Track your progress</p>
-    </div>
-
-    <div class="card" onclick="goTo('mood.html')">
-      <h2>😊 Mood</h2>
-      <p>Log how you feel</p>
-    </div>
+<div class="top-bar">
+  <div class="title-section">
+      <h1>📖 Eunoia</h1>
+      <p class="page-subtitle">Welcome back. How are you feeling today?</p>
   </div>
+  </div>
+<body class="dashboard-page">
 
-  <script src="dashboard.js"></script>
+  <div class="status-row" style="max-width: 900px; margin: 0 auto 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+        
+    <div class="card mini-card">
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Status</span>
+        <h3 id="dynamicGreeting" style="margin: 8px 0 0 0; font-size: 1.1rem; color: var(--text-main); line-height: 1.3;">Checking in...</h3>
+    </div>
+
+    <div class="card mini-card" style="text-align: center; border: 1px solid var(--accent-blue); background: #f0f7ff;">
+        <span style="font-size: 0.8rem; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Current Time</span>
+        <div id="visualClock" style="font-family: monospace; font-size: 1.8rem; font-weight: bold; color: var(--text-main); margin-top: 5px;">00:00</div>
+    </div>
+
+    <div class="card mini-card">
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Energy Level</span>
+        <div style="display: flex; gap: 5px; margin-top: 10px;">
+            <button onclick="setEnergy('low', this)" class="energy-btn">🔋</button>
+            <button onclick="setEnergy('med', this)" class="energy-btn">🔋🔋</button>
+            <button onclick="setEnergy('high', this)" class="energy-btn">🔋🔋🔋</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="journal-container" style="justify-content: center; padding-top: 0;">
+
+    <div class="journal-container" style="justify-content: center;">
+        <div class="dashboard-grid">
+            
+            <div class="card main-nav-card" onclick="goTo('journal.html')">
+                <div class="card-icon">✍️</div>
+                <div class="card-content">
+                    <h2>Journal</h2>
+                    <p>Capture your thoughts and reflections</p>
+                </div>
+            </div>
+
+            <div class="card main-nav-card" onclick="goTo('todo.html')">
+              <div class="card-icon">☑️</div>
+              <div class="card-content">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                      <h2>To Do</h2>
+                      <span id="energyTaskCount" style="display: none; background: var(--accent-blue); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: bold;"></span>
+                  </div>
+                  <p id="todoSubtext">Manage your daily goals and tasks</p>
+              </div>
+          </div>
+
+            <div class="card main-nav-card" onclick="goTo('habits.html')">
+                <div class="card-icon">🎯</div>
+                <div class="card-content">
+                    <h2>Habits</h2>
+                    <p>Track your growth and progress</p>
+                </div>
+            </div>
+
+            <div class="card main-nav-card" onclick="goTo('mood.html')">
+                <div class="card-icon">😊</div>
+                <div class="card-content">
+                    <h2>Mood</h2>
+                    <p>Log your energy and emotions</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
 </body>
 </html>
