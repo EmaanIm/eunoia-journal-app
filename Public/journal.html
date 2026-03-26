@@ -2,18 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Journal</title>
+    <title>Eunoia | Journal</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="journal-page">
 
-    <!-- TOP BAR -->
     <div class="top-bar">
         <div class="title-section">
             <h1>📖 Eunoia</h1>
-            <p style>Capture your thoughts, reflect on your day</p>
+            <p class="page-subtitle">Capture your thoughts, reflect on your day</p>
         </div>
-
         <div class="nav">
             <div class="back-arrow" onclick="history.back()">⬅️</div>
             <a href="journal.html" class="active">✍️ Journal</a>
@@ -24,48 +22,97 @@
     </div>
 
     <div class="journal-container">
-        
-        <!-- LEFT SIDE PROMPTS -->
-        <div class="prompts">
-            <h2>Prompts</h2>
-
-            <div class="prompt" onclick="startEntry('How do I feel right now?')">
-                🤔 How do I feel right now?
+        <aside class="sidebar-cards">
+            <div class="prompts">
+                <h2>Journal Prompts</h2>
+                <div class="prompts-container">
+                    <div class="prompt" onclick="startEntry('How do I feel right now?')">
+                        <span class="prompt-icon">🤔</span> <span class="prompt-text">How do I feel right now?</span>
+                    </div>
+                    <div class="prompt" onclick="startEntry('If my current emotion was a color or weather pattern, what would it be?')">
+                        <span class="prompt-icon">🎨</span> <span class="prompt-text">Describe my mood as weather.</span>
+                    </div>
+                    <div class="prompt" onclick="startEntry('What sensory inputs are bothering me today?')">
+                        <span class="prompt-icon">🎧</span> <span class="prompt-text">Sensory check-in.</span>
+                    </div>
+                    <div class="prompt" onclick="startEntry('What was the exact moment I started feeling overwhelmed today?')">
+                        <span class="prompt-icon">🔍</span> <span class="prompt-text">Identify the spark of stress.</span>
+                    </div>
+                    <div class="prompt" onclick="startEntry('What is one thing I accomplished today, even if it was just resting?')">
+                        <span class="prompt-icon">✨</span> <span class="prompt-text">Celebrate a small win.</span>
+                    </div>
+                    <div class="prompt" onclick="document.getElementById('journalText').value = 'If a friend felt this way, I would tell them: '">
+                        <span class="prompt-icon">🫂</span> <span class="prompt-text">Advice to a friend.</span>
+                    </div>
+                </div> 
+            </div>
+    
+            <div class="card tools-card">
+                <h2>Regulation Toolkit</h2>
+                <button class="tool-btn grounding" onclick="toggleGrounding()"><span>🧘</span> Grounding (5-4-3-2-1)</button>
+                <button class="tool-btn body-scan" onclick="toggleBodyScan()"><span>🧍</span> Body Scan Check-in</button>
+                <button class="tool-btn reframer" onclick="toggleReframer()"><span>🧠</span> Thought Reframer</button>
+                <button class="tool-btn sensory" onclick="toggleSensory()"><span>🌈</span> Quick Sensory Reset</button>
+                <button class="tool-btn voice" onclick="startVoiceEntry()"><span>🎙️</span> Voice to Text</button>
+            </div>
+        </aside>
+    
+        <main class="entry-area">
+            <div id="groundingOverlay" class="card tool-overlay" style="display:none;">
+                <h3 id="groundingStep">Grounding</h3>
+                <p id="groundingDesc">Focus on your surroundings...</p>
+                <button onclick="nextGroundingStep()">Next Step</button>
             </div>
 
-            <div class="prompt" onclick="startEntry('What stressed me out today?')">
-                😰 What stressed me out today?
+            <div id="bodyScanOverlay" class="card tool-overlay" style="display:none;">
+                <h3>Body Scan Check-in</h3>
+                <p>Where do you feel tension or sensation right now?</p>
+                <div class="body-map">
+                    <div class="body-part" onclick="logBodyPart('Head')">Head</div>
+                    <div class="body-part" onclick="logBodyPart('Shoulders')">Shoulders</div>
+                    <div class="body-part" onclick="logBodyPart('Chest')">Chest</div>
+                    <div class="body-part" onclick="logBodyPart('Stomach')">Stomach</div>
+                    <div class="body-part" onclick="logBodyPart('Hands')">Hands</div>
+                    <div class="body-part" onclick="logBodyPart('Feet')">Feet</div>
+                </div>
+                <button class="secondary-btn" onclick="toggleBodyScan()" style="margin-top:15px; background:#e2dfdb; color:#3a4a57;">Cancel</button>
+            </div>
+            
+            <div id="reframerOverlay" class="card tool-overlay" style="display:none;">
+                <h3>Thought Reframer</h3>
+                <p>Is this thought an objective fact, or an intense feeling?</p>
+                <div class="reframe-options" style="display:flex; gap:15px; justify-content:center; margin-top:20px;">
+                    <button onclick="reframe('Fact')" style="flex:1;">It's a FACT</button>
+                    <button onclick="reframe('Feeling')" style="flex:1;">It's a FEELING</button>
+                </div>
+                <button class="secondary-btn" onclick="toggleReframer()" style="margin-top:15px; background:#e2dfdb; color:#3a4a57; width:100%;">Cancel</button>
+            </div>
+            
+            <div id="sensoryOverlay" class="card tool-overlay" style="display:none;">
+                <h3>Quick Sensory Reset</h3>
+                <div id="sensoryTask" style="font-size: 1.1rem; padding: 20px; background: #f8f9fa; border-radius: 12px; margin-bottom: 20px;">Initializing task...</div>
+                <div style="display:flex; gap:10px;">
+                    <button onclick="nextSensory()" style="flex:1;">New Task</button>
+                    <button onclick="toggleSensory()" style="flex:1; background:#e2dfdb; color:#3a4a57;">I'm done</button>
+                </div>
             </div>
 
-            <div class="prompt" onclick="startEntry('What went well today?')">
-                ✨ What went well today?
+            <div class="card" id="mainEntryCard">
+                <h3 id="entryTitle">Select a prompt or start writing</h3>
+                <textarea id="journalText" placeholder="Start typing your thoughts here..."></textarea>
+                <div class="energy-section">
+                    <label>Spoons Remaining:</label>
+                    <input type="range" id="energyMeter" min="1" max="10" value="5">
+                    <span id="energyValue">5/10</span>
+                </div>
+                <button onclick="saveEntry()" class="save-btn">Save Entry</button>
             </div>
-
-            <div class="prompt" onclick="startEntry('Why am I unhappy?')">
-                😔 Why am I unhappy?
-            </div>
-
-            <div class="prompt" onclick="startEntry('What I am grateful for?')">
-                🙏 What I am grateful for?
-            </div>
-
-            <div class="prompt" onclick="startEntry('What should I do differently tomorrow?')">
-                ☁️ What should I do differently tomorrow?
-            </div>
-        </div>
-
-        <!-- RIGHT SIDE ENTRY AREA -->
-        <div class="entry-area">
-            <h3 id="entryTitle">Select an entry to view or create a new one</h3>
-            <textarea id="journalText"></textarea>
-            <button onclick="saveEntry()">Save Entry</button>
-
+    
             <div class="past-entries">
-                <h3>Past Entries</h3>
+                <div class="header-row"><h3>Past Entries</h3></div>
                 <div id="entriesList"></div>
             </div>
-        </div>
-
+        </main>
     </div>
 
     <script src="journal.js"></script>

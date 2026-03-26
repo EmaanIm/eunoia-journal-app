@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>☑️ To Do</title>
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="todo.css">
-<body class="todo-page">
+    <meta charset="UTF-8">
+    <title>Eunoia | To Do</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="todo-page">
 
     <div class="top-bar">
         <div class="title-section">
             <h1>📖 Eunoia</h1>
-            <p style>Capture your thoughts, reflect on your day</p>
+            <p class="page-subtitle">Organize your day, clear your mind</p>
         </div>
         <div class="nav">
             <div class="back-arrow" onclick="history.back()">⬅️</div>
@@ -22,43 +20,82 @@
             <a href="mood.html">😊 Mood</a>
         </div>
     </div>
-    <!-- Wrap main content and sidebar together -->
-    <div class="content">
-        <!-- Main card (your todo input + list) -->
-        <div class="main-card">
-            <h2>To Do</h2>
-    
-            <div class="input-row">
-                <input type="text" id="taskInput" placeholder="Add a task...">
-                <input type="date" id="deadlineInput">
-                <button onclick="addTask()">+</button>
-            </div>
-    
-            <div class="filter">
-                <span>Filter by priority:</span>
-                <button onclick="filterTasks('all')" class="active">All</button>
-                <button onclick="filterTasks('!!!')">!!!</button>
-                <button onclick="filterTasks('!!')">!!</button>
-                <button onclick="filterTasks('!')">!</button>
-            </div>
-    
-            <div id="taskList"></div>
-        </div>
-    
-        <!-- Sidebar cards -->
-        <div class="sidebar-cards">
-            <!-- You can add quick stats, recent tasks, or floating info cards here -->
+
+    <div class="journal-container">
+        
+        <main class="entry-area">
             <div class="card">
-                <h2>Tasks Today</h2>
-                <p>3 tasks pending</p>
+                <h2>My Tasks</h2>
+                
+                <div class="input-row-container" style="background: #fdfbf9; padding: 20px; border-radius: 15px; border: 1px dashed #d1d9e0; margin-bottom: 25px;">
+                    
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <input type="text" id="taskInput" placeholder="Main goal (e.g., Clean Kitchen)" style="flex: 2; padding: 12px; border-radius: 12px; border: 1px solid #f0f0f0;">
+                        <input type="date" id="deadlineInput" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #f0f0f0;">
+                        <button onclick="addTask()" style="padding: 0 25px;">Add Goal</button>
+                    </div>
+                    
+                    <div id="subTaskInputs" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <input type="text" class="sub-input-field" placeholder="Step 1" style="flex:1; font-size: 0.8rem; padding: 10px; border-radius: 10px; border: 1px dashed #ccc;">
+                        <input type="text" class="sub-input-field" placeholder="Step 2" style="flex:1; font-size: 0.8rem; padding: 10px; border-radius: 10px; border: 1px dashed #ccc;">
+                        <input type="text" class="sub-input-field" placeholder="Step 3" style="flex:1; font-size: 0.8rem; padding: 10px; border-radius: 10px; border: 1px dashed #ccc;">
+                    </div>
+
+                    <div class="filter" style="display: flex; align-items: center; gap: 10px; border-top: 1px solid #eee; padding-top: 15px;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Filter Priority:</span>
+                        <button onclick="filterTasks('all')" class="filter-btn active">All</button>
+                        <button onclick="filterTasks('!!!')" class="filter-btn">!!!</button>
+                        <button onclick="filterTasks('!!')" class="filter-btn">!!</button>
+                        <button onclick="filterTasks('!')" class="filter-btn">!</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2 style="display: flex; align-items: center; gap: 10px;">
+                        <span>📅</span> Upcoming Deadlines
+                    </h2>
+                    
+                    <div id="deadlineList" style="display: flex; gap: 12px; overflow-x: auto; padding: 10px 5px 20px 5px; margin-bottom: 20px; border-bottom: 1px solid #f8f9fa;">
+                        <div class="deadline-pill">
+                            <strong style="color: #c97b7b;">Urgent:</strong> Finish Project (2 days)
+                        </div>
+                        <div class="deadline-pill">
+                            <strong style="color: var(--accent-blue);">Soon:</strong> Grocery Run (4 days)
+                        </div>
+                    </div>
+                
+                    <div id="taskList"></div>
+                </div>
+
+                <div id="taskList"></div>
             </div>
+        </main>
+
+        <aside class="sidebar-cards">
+            
+            <div class="card timer-card" style="text-align: center;">
+                <h2 style="font-size: 1.1rem; border-bottom: 1px solid #f2f2f2; padding-bottom: 8px;">Focus Timer</h2>
+                <div id="timerDisplay" style="font-size: 2.5rem; font-weight: bold; color: var(--accent-blue); text-align: center; margin: 20px 0; font-family: monospace;">25:00</div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="timerBtn" onclick="toggleTimer()" style="flex: 1; padding: 10px; font-size: 0.85rem;">Start Focus</button>
+                    <button onclick="resetTimer()" style="flex: 0.5; padding: 10px; font-size: 0.85rem; background: #e2dfdb; color: #3a4a57;">Reset</button>
+                </div>
+            </div>
+            
             <div class="card">
-                <h2>Upcoming Deadlines</h2>
-                <p>2 tasks due tomorrow</p>
+                <h2 style="font-size: 1.1rem; border-bottom: 1px solid #f2f2f2; padding-bottom: 8px;">Overview</h2>
+                <div style="text-align: center; padding: 10px 0;">
+                    <p id="pendingCount" style="color: var(--accent-blue); font-weight: bold; font-size: 2rem; margin: 0;">0</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Tasks pending</p>
+                </div>
             </div>
-        </div>
-    </div>
-    
-    <script src="todo.js"></script>
-    </body>    
+
+            <div class="card" style="background: #fdfbf9; border: 1px solid #e8e2da;">
+                <h2 style="font-size: 1.1rem;">Quick Tip</h2>
+                <p style="font-size: 0.85rem; color: var(--text-main); line-height: 1.5;">Break goals into tiny steps to lower the barrier to starting.</p>
+            </div>
+
+        </aside>
+
+    </div> <script src="todo.js"></script>
+</body>
 </html>

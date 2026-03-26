@@ -1,304 +1,39 @@
-/* =========================
-   BASE STYLES
-   ========================= */
+/* =====================================================
+   1. BASE & THEME VARIABLES
+   ===================================================== */
+   :root {
+    --bg-color: #f4efe9;
+    --card-bg: #ffffff;
+    --input-bg: #f2f2f2;
+    --text-main: #3a4a57;
+    --text-muted: #8a9aa6;
+    --accent-blue: #8ea0ad;
+    --accent-blue-hover: #7e919e;
+    --accent-green: #9cad97;
+    --radius-lg: 18px;
+    --radius-md: 14px;
+    --shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
 
-   body {
-    background-color: #f4efe9;
-    color: #3a4a57;
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
     font-family: "Segoe UI", system-ui, sans-serif;
     line-height: 1.6;
+    margin: 0;
     min-height: 100vh;
-
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
-
-/* Centering ONLY login page */
-.login-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/* =========================
-   BRAND HEADER
-   ========================= */
-
-.brand {
-    text-align: center;
-    margin-bottom: 2.5rem;
-}
-
-.brand h1 {
-    font-size: 2.2rem;
-    font-weight: 500;
-    margin-bottom: 0.4rem;
-    color: #3f5363;
-}
-
-.brand p {
-    color: #8a9aa6;
-    font-size: 1rem;
-}
-
-/* =========================
-   LOGIN CARD
-   ========================= */
-
-.card {
-    background-color: #ffffff;
-    width: 420px;
-    padding: 2.5rem;
-    border-radius: 18px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-    border: none;
-    text-align: left;
-}
-
-.card h2 {
-    margin-bottom: 1.8rem;
-    font-weight: 500;
-    color: #3f5363;
-}
-
-/* =========================
-   FORM LAYOUT
-   ========================= */
-
-label {
-    font-size: 0.95rem;
-    font-weight: 500;
-    margin-bottom: 0.4rem;
-    display: block;
-    color: #4f6475;
-}
-
-.input-group {
-    display: flex;
-    align-items: center;
-    background-color: #f2f2f2;
-    border-radius: 12px;
-    padding: 0 0.8rem;
-    margin-bottom: 1.2rem;
-}
-
-.input-group .icon {
-    color: #94a3ad;
-    font-size: 1rem;
-}
-
-.input-group input {
-    border: none;
-    background: transparent;
-    padding: 0.9rem 0.6rem;
-    width: 100%;
-    font-size: 0.95rem;
-    outline: none;
-    color: #3a4a57;
-}
-
-.input-group .toggle {
-    cursor: pointer;
-    color: #94a3ad;
-}
-
-/* =========================
-   BUTTON
-   ========================= */
-
-button {
-    background-color: #8ea0ad;
-    color: white;
-    border: none;
-    border-radius: 14px;
-    padding: 1rem;
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 0.5rem;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-button:hover {
-    background-color: #7e919e;
-}
-
-button:active {
-    transform: scale(0.98);
-}
-
-/* =========================
-   FOOTER TEXT
-   ========================= */
-
-.footer-text {
-    margin-top: 1.8rem;
-    font-size: 0.95rem;
-    text-align: center;
-    color: #7b8c97;
-}
-
-.footer-text a {
-    color: #5d7382;
-    text-decoration: underline;
-    font-weight: 500;
-}
-
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* exactly 2 equal columns */
-  gap: 20px; /* space between cards */
-  margin-top: 40px;
-  max-width: 640px; /* 2 cards × 300px + 20px gap = 620px, small buffer */
-  margin-left: auto;
-  margin-right: auto; /* center the grid */
-  box-sizing: border-box;
-}
-
-.dashboard .card {
-  background: #9cad97;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  padding: 20px;
-  border-radius: 12px;
-  box-sizing: border-box;
-  width: 100%; /* fills the grid column exactly */
-}
-
-.dashboard .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
-}
-
-.dashboard .card h2 {
-  color: white;
-  margin-bottom: 0.5rem;
-}
-
-.dashboard .card p {
-  color: #eef2ee;
-}
-
-
-.dashboard .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
-}
-
-.dashboard .card h2 {
-  color: white;
-  margin-bottom: 0.5rem;
-}
-
-.dashboard .card p {
-  color: #eef2ee;
-}
-
 
 /* =====================================================
-   JOURNAL PAGE
+   2. TOP BAR & NAVIGATION
    ===================================================== */
-
-.journal-container {
-    display: flex;
-    gap: 40px;
-    margin-top: 40px;
-    align-items: flex-start;
-    width: 90%;
-    max-width: 1200px;
-}
-
-.prompts {
-    width: 300px;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 18px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-}
-
-.prompts h2 {
-    margin-bottom: 1rem;
-    color: #3f5363;
-}
-
-.prompt {
-    background: #f2f2f2;
-    padding: 14px;
-    margin-bottom: 10px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.prompt:hover {
-    background: #e4e4e4;
-}
-
-.entry-area {
-    flex: 1;
-}
-
-.entry-area h3 {
-    color: #7b8c97;
-    font-weight: 400;
-}
-
-textarea {
-    width: 100%;
-    height: 200px;
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 14px;
-    border: 1px solid #ddd;
-    resize: vertical;
-    font-size: 0.95rem;
-    outline: none;
-}
-
-textarea:focus {
-    border-color: #8ea0ad;
-}
-
-.past-entries {
-    margin-top: 40px;
-}
-
-.entry-card {
-    background: #ffffff;
-    padding: 15px;
-    border-radius: 14px;
-    margin-bottom: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-}
-
-.entry-card strong {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.entry-card small {
-    color: #8a9aa6;
-    font-size: 0.8rem;
-}
-
-
-/* =========================
-   TOP BAR LAYOUT
-   ========================= */
-
-   .top-bar {
+.top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 60px;
 }
-
-/* =========================
-   NAVIGATION (RIGHT SIDE)
-   ========================= */
 
 .nav {
     display: flex;
@@ -306,28 +41,902 @@ textarea:focus {
     align-items: center;
 }
 
-/* Small card links */
 .nav a {
-    background: #ffffff;
+    background: var(--card-bg);
     padding: 10px 16px;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     text-decoration: none;
     color: #3f5363;
     font-size: 0.9rem;
     font-weight: 500;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    white-space: nowrap;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
-/* Hover lift */
-.nav a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-}
-
-/* Active page highlight */
 .nav a.active {
-    background: #8ea0ad; /* dusty blue */
+    background: var(--accent-blue);
     color: white;
+}
+
+/* =====================================================
+   JOURNAL PAGE REFINEMENTS
+   ===================================================== */
+
+/* Container Layout */
+.journal-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 20px auto 60px auto;
+    padding: 0 40px;
+    align-items: flex-start;
+}
+
+/* Sidebar Styling */
+.sidebar-cards {
+    flex: 0 0 300px; /* Fixed width for consistency */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar-cards h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #4f6475;
+    border-bottom: 2px solid #f2f2f2;
+    padding-bottom: 8px;
+}
+
+/* =====================================================
+   FIXED PROMPTS & SIDEBAR
+   ===================================================== */
+
+   .prompts-card {
+    padding: 25px !important;
+}
+
+.prompts-card h2 {
+    font-size: 1.3rem;
+    color: #4f6475;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.prompt {
+    display: flex;
+    align-items: center; /* Centers emoji and text vertically */
+    gap: 15px; /* Creates a clean space between icon and text */
+    background: #f8f9fa;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Icons are fixed width so the text following them stays aligned */
+.prompt-icon {
+    font-size: 1.2rem;
+    min-width: 28px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prompt-text {
+    font-size: 0.95rem;
+    color: #3f5363;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Hover State: Subtle lift and blue border */
+.prompt:hover {
+    background: #ffffff;
+    border-color: var(--accent-blue); /* #8ea0ad */
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.prompt:active {
+    transform: translateX(2px);
+}
+
+/* Regulation Tools Button Polish */
+.tool-btn {
+    width: 100%;
+    background-color: var(--accent-green); /* #9cad97 */
+    color: white;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.tool-btn:hover {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+}
+/* =====================================================
+   FIXED SCROLLABLE PROMPTS CARD
+   ===================================================== */
+
+   .prompts {
+    background-color: var(--card-bg); /* Restores white background */
+    padding: 25px; /* Restores internal padding */
+    border-radius: var(--radius-lg); /* Restores rounded corners */
+    box-shadow: var(--shadow); /* Restores the soft shadow */
+    max-height: 550px; /* Limits card height */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.prompts h2 {
+    font-size: 1.3rem;
+    color: #4f6475;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-top: 0;
+}
+
+/* Internal scrollable wrapper */
+.prompts-container {
+    overflow-y: auto; 
+    flex-grow: 1;
+    padding-right: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hide scrollbars */
+.prompts-container::-webkit-scrollbar {
+    display: none;
+}
+.prompts-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Prompt items styling */
+.prompt {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #f8f9fa;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0; /* Prevents items from squishing */
+}
+
+.prompt:hover {
+    background: #ffffff;
+    border-color: var(--accent-blue);
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #f6d6dc; /* Blush Pink */
+    border: 2px solid #eec1c9;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #f6d6dc; /* Blush Pink */
+    border: 2px solid #eec1c9;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* SIDEBAR TOOLKIT BUTTONS */
+.tool-btn {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #8ea0ad; /* Dusty Blue */
+}
+
+
+.tool-btn:hover {
+    filter: brightness(0.9);
+    transform: translateY(-2px);
+}
+
+/* =====================================================
+   MUTED SAGE GREEN ENERGY METER
+   ===================================================== */
+
+   :root {
+    --muted-sage: #a5b3a0;
+    --muted-sage-dark: #8e9c89; /* For borders and hover states */
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    /* Background is handled dynamically by journal.js */
+}
+
+/* Thumb - Chrome, Safari, Edge */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    background: var(--muted-sage);
+    border: 2px solid var(--muted-sage-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, background 0.2s ease;
+    margin-top: -6px; /* Centers thumb on the track */
+}
+
+/* Thumb - Firefox */
+input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    background: var(--muted-sage);
+    border: 2px solid var(--muted-sage-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Fill - Firefox Specific */
+input[type="range"]::-moz-range-progress {
+    background-color: var(--muted-sage);
+    height: 100%;
+    border-radius: 5px;
+}
+
+/* Hover Interaction */
+input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.1);
+    background: var(--muted-sage-dark);
+}
+
+#energyValue {
+    font-weight: 600;
+    color: #7b8c97; /* Muted slate for the text label */
+    margin-left: 10px;
+}
+
+/* Tool Overlays */
+.tool-overlay {
+    border: 2px solid var(--accent-blue);
+    background: #fdfbf9;
+    margin-bottom: 25px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Body Map Layout */
+.body-map {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.body-part {
+    background: #f2f2f2;
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: 0.2s;
+}
+
+.body-part:hover {
+    background: white;
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+}
+
+/* Reframe Options */
+.reframe-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.reframe-options button {
+    flex: 1;
+    max-width: 150px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.tool-btn {
+    background: var(--accent-green);
+    color: white;
+    border: none;
+    font-weight: 500;
+    text-align: center;
+}
+
+.tool-btn:hover {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+}
+
+/* Main Entry Area */
+.entry-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+#entryTitle {
+    font-size: 1.4rem;
+    color: #3f5363;
+    margin-bottom: 15px;
+}
+
+textarea {
+    width: 100%;
+    height: 300px;
+    padding: 20px;
+    border-radius: 18px;
+    border: 2px solid #f0f0f0;
+    background: #ffffff;
+    font-size: 1rem;
+    line-height: 1.6;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+textarea:focus {
+    border-color: var(--accent-blue);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(142, 160, 173, 0.1);
+}
+
+/* Energy Meter Styling */
+.energy-section {
+    margin: 20px 0;
+    padding: 20px;
+    background: #fdfbf9;
+    border-radius: 15px;
+    border: 1px dashed #d1d9e0;
+}
+
+.energy-section label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #5d7382;
+}
+
+/* Slider Customization */
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent-blue);
+    cursor: pointer;
+}
+
+/* Past Entries List */
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.entry-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--accent-green);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease;
+}
+
+.entry-card:hover {
+    transform: translateY(-3px);
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.energy-badge {
+    background: #eef2f5;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #5d7382;
+    font-weight: 700;
+}
+
+.entry-footer {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 15px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.del-btn {
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.del-btn:hover {
+    opacity: 1;
+    color: #c97b7b;
+}
+
+/* Grounding Box Animation */
+.grounding-box {
+    border: 2px solid var(--accent-blue);
+    background: #f0f7ff;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* =====================================================
+   TO DO PAGE ENHANCEMENTS
+   ===================================================== */
+
+   .filter-btn {
+    background: #eee;
+    color: var(--text-main);
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.filter-btn.active {
+    background: var(--accent-blue);
+    color: white;
+}
+
+.filter-btn:hover:not(.active) {
+    background: #e2e8f0;
+}
+
+/* Fix for the Date input consistency */
+input[type="date"] {
+    font-family: inherit;
+    color: var(--text-main);
+}
+
+/* Sidebar overview number animation */
+#pendingCount {
+    transition: all 0.3s ease;
+}
+
+/* =====================================================
+   5. GENERAL COMPONENTS (CARDS, BUTTONS, INPUTS)
+   ===================================================== */
+.card {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+}
+
+button {
+    background-color: var(--accent-blue);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--accent-blue-hover);
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 640px;
+    margin: 40px auto;
+}
+
+.dashboard .card {
+    background: var(--accent-green);
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+/* =====================================================
+   SCROLLABLE PROMPTS SECTION
+   ===================================================== */
+
+/* 1. Set a max height on the card so it doesn't grow forever */
+.prompts {
+    max-height: 500px; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* 2. Style the new container to allow scrolling */
+.prompts-container {
+    overflow-y: auto; /* Enable vertical scroll */
+    flex-grow: 1;
+    padding-right: 5px;
+}
+
+/* 3. Hide the scrollbar for a cleaner look (Chrome/Safari) */
+.prompts-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* 4. Hide scrollbar for Firefox */
+.prompts-container {
+    scrollbar-width: none;
+}
+
+/* 5. Ensure prompt items use flex for icon alignment */
+.prompt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8f9fa;
+    padding: 14px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.prompt:hover {
+    background: #ffffff;
+    transform: translateX(5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+/* =====================================================
+   FIXED SCROLLABLE PROMPTS CARD
+   ===================================================== */
+
+   .prompts {
+    background-color: var(--card-bg); /* Restores white background */
+    padding: 25px; /* Restores internal padding */
+    border-radius: var(--radius-lg); /* Restores rounded corners */
+    box-shadow: var(--shadow); /* Restores the soft shadow */
+    max-height: 550px; /* Limits card height */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.prompts h2 {
+    font-size: 1.3rem;
+    color: #4f6475;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-top: 0;
+}
+
+/* Internal scrollable wrapper */
+.prompts-container {
+    overflow-y: auto; 
+    flex-grow: 1;
+    padding-right: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hide scrollbars */
+.prompts-container::-webkit-scrollbar {
+    display: none;
+}
+.prompts-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Prompt items styling */
+.prompt {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #f8f9fa;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0; /* Prevents items from squishing */
+}
+
+.prompt:hover {
+    background: #ffffff;
+    border-color: var(--accent-blue);
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ... existing code ... */
+
+/* --- NEW ALIGNMENT FIXES --- */
+/* Update your existing tool-btn style to ensure icons align */
+.tool-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--accent-blue);
+    text-align: left;
+    width: 100%; /* Ensures it fills the sidebar width */
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Ensure the range slider looks correct with the JS fill */
+input[type="range"] {
+    -webkit-appearance: none;
+    background: #f2f2f2; /* Default background, JS will override with green */
+    height: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Add specific styling for tool icons if needed */
+.tool-btn span {
+    min-width: 24px;
+    text-align: center;
+    display: inline-block;
+}
+/* =====================================================
+   TO DO PAGE - COMPONENT STYLES
+   ===================================================== */
+
+/* 1. Main Layout Force-Fix */
+.todo-page .journal-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 20px auto 60px auto;
+    padding: 0 40px;
+    align-items: flex-start;
+}
+
+/* 2. Sidebar Alignment (Right Side) */
+.todo-page .sidebar-cards {
+    flex: 0 0 320px !important; /* Fixed width for consistency */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 3. Main Task Area (Left Side) */
+.todo-page .entry-area {
+    flex: 1 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* 4. Input Row & Sub-tasks */
+.todo-page .input-row {
+    background: #fdfbf9;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    border: 1px dashed #d1d9e0;
+}
+
+.sub-input {
+    border: 1px dashed #ccc;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.sub-input:focus {
+    border: 1px solid var(--accent-blue);
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(142, 160, 173, 0.1);
+}
+
+/* 5. Task Items (The List) */
+.item {
+    background: white;
+    padding: 18px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    border-left: 5px solid var(--accent-blue);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease;
+}
+
+.item:hover {
+    transform: translateY(-2px);
+}
+
+.item.completed {
+    opacity: 0.6;
+    filter: grayscale(0.4);
+}
+
+.sub-task-container {
+    margin-top: 10px;
+    padding-left: 30px;
+    border-top: 1px solid #f8f9fa;
+    padding-top: 10px;
+}
+
+/* 6. Timer Styling */
+.timer-card {
+    text-align: center;
+    border: 2px solid #f0f4f8;
+}
+
+#timerDisplay {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2.5rem;
+    color: var(--text-main);
+    margin: 15px 0;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* 7. General Button Consistency */
+.todo-page button {
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.todo-page .filter-btn {
+    background: #f2f2f2;
+    color: var(--text-main);
+    padding: 6px 14px;
+    margin-right: 5px;
+    font-size: 0.8rem;
+}
+
+.todo-page .filter-btn.active {
+    background: var(--accent-blue);
+    color: white;
+}
+/* Sub-task input styling */
+.sub-input-field:focus {
+    border-color: var(--accent-blue) !important;
+    border-style: solid !important;
+    outline: none;
+    background: #fff;
+}
+
+/* Timer card appearance */
+.timer-card {
+    border: 2px solid #edf2f7;
+    background: linear-gradient(to bottom, #ffffff, #fdfbf9);
+}
+
+/* Tabular numbers prevent the timer from "jumping" as digits change */
+#timerDisplay {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 1px;
+}
+
+/* Ensure sub-tasks look nested */
+.sub-task-list {
+    animation: fadeIn 0.3s ease;
+}
+/* =====================================================
+   UPCOMING DEADLINES & TASK LIST REFINEMENTS
+   ===================================================== */
+
+/* Container for the horizontal scrolling pills */
+#deadlineList {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto; /* Allows side-swiping if many deadlines exist */
+    padding: 10px 5px 20px 5px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f8f9fa;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: var(--accent-blue) transparent;
+}
+
+/* Custom Scrollbar for Chrome/Safari */
+#deadlineList::-webkit-scrollbar {
+    height: 5px;
+}
+#deadlineList::-webkit-scrollbar-thumb {
+    background: #e2dfdb;
+    border-radius: 10px;
+}
+
+/* Individual Deadline Pills */
+.deadline-pill {
+    background: white;
+    border: 1px solid #f0f0f0;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    color: var(--text-main);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+    flex-shrink: 0; /* Prevents pills from squishing */
+}
+
+/* Hover effect to match Journal entry cards */
+.deadline-pill:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-blue);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Fix for Task List padding */
+#taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
