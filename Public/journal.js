@@ -129,13 +129,16 @@ function updateSliderFill() {
 
 // --- TOOLKIT LOGIC ---
 function closeAllOverlays() {
-    ['groundingOverlay', 'bodyScanOverlay', 'reframerOverlay', 'sensoryOverlay'].forEach(id => {
+    const overlays = ['groundingOverlay', 'bodyScanOverlay', 'reframerOverlay', 'sensoryOverlay'];
+    overlays.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = "none";
     });
+    const mainCard = document.getElementById("mainEntryCard");
+    if (mainCard) mainCard.style.opacity = "1";
 }
 
-// --- GROUNDING LOGIC (FIXED & MERGED) ---
+// 1. GROUNDING LOGIC
 let miniStep = 0;
 const groundingData = [
     { step: "5 - See", desc: "Look around. Name 5 things you can see." },
@@ -147,34 +150,22 @@ const groundingData = [
 
 function toggleGrounding() {
     const overlay = document.getElementById('groundingOverlay');
-    const menu = document.getElementById('groundingChoiceMenu');
-    const steps = document.getElementById('miniGroundingSteps');
-    const mainCard = document.getElementById("mainEntryCard");
-
     if (overlay.style.display === 'none' || overlay.style.display === '') {
         closeAllOverlays();
         overlay.style.display = 'block';
-        menu.style.display = 'block'; // Show menu
-        steps.style.display = 'none'; // Ensure steps are hidden
-        if (mainCard) mainCard.style.opacity = "0.2";
+        document.getElementById('groundingChoiceMenu').style.display = 'block';
+        document.getElementById('miniGroundingSteps').style.display = 'none';
+        document.getElementById("mainEntryCard").style.opacity = "0.2";
     } else {
-        overlay.style.display = 'none';
-        if (mainCard) mainCard.style.opacity = "1";
+        closeAllOverlays();
     }
 }
 
 function startMiniGrounding() {
-    console.log("Starting Mini Grounding");
     document.getElementById('groundingChoiceMenu').style.display = 'none';
     document.getElementById('miniGroundingSteps').style.display = 'block';
     miniStep = 0;
     updateMiniStep();
-}
-
-function updateMiniStep() {
-    const data = groundingData[miniStep];
-    document.getElementById('groundingStep').innerText = data.step;
-    document.getElementById('groundingDesc').innerText = data.desc;
 }
 
 function updateMiniStep() {
@@ -188,55 +179,95 @@ function nextGroundingStep() {
         miniStep++;
         updateMiniStep();
     } else {
-        // 1. Update text to show completion
         document.getElementById('groundingStep').innerText = "Centered.";
         document.getElementById('groundingDesc').innerText = "You've successfully grounded yourself.";
-        
-        // 2. Wait 2 seconds, then close EVERYTHING
         setTimeout(() => {
-            const overlay = document.getElementById('groundingOverlay');
-            const mainCard = document.getElementById("mainEntryCard");
-
-            // DIRECTLY hide the overlay instead of calling toggleGrounding()
-            if (overlay) overlay.style.display = 'none';
-            if (mainCard) mainCard.style.opacity = "1";
-
-            // 3. Automatically start a reflection entry
+            closeAllOverlays();
             startEntry("Post-Grounding Reflection");
             document.getElementById("journalText").value = "I have completed my grounding. Right now, I feel... ";
         }, 2000);
     }
 }
 
-// --- OTHER TOOLS ---
+// 2. BODY SCAN
 function toggleBodyScan() {
     const el = document.getElementById("bodyScanOverlay");
-    el.style.display === "none" ? (closeAllOverlays(), el.style.display = "block") : closeAllOverlays();
+    if (el.style.display === "none") {
+        closeAllOverlays();
+        el.style.display = "block";
+        document.getElementById("mainEntryCard").style.opacity = "0.2";
+    } else {
+        closeAllOverlays();
+    }
 }
 
 function logBodyPart(part) {
-    document.getElementById("journalText").value += `\n[Body Scan: Tension in ${part}] `;
-    toggleBodyScan();
+    closeAllOverlays();
+    const textArea = document.getElementById("journalText");
+    
+    // Define area-specific release exercises
+    const exercises = {
+        'Head': 'Try a "Jaw Drop": Let your mouth hang open slightly and move your jaw side to side, or gently massage your temples.',
+        'Shoulders': 'Try "Shoulder Shrugs": Inhale deeply while pulling shoulders to ears, hold for 3 seconds, and drop them heavily on the exhale.',
+        'Chest': 'Try "Box Breathing": Inhale for 4, hold for 4, exhale for 4, hold for 4. Feel your ribs expand and contract.',
+        'Stomach': 'Try "Abdominal Softening": Place a hand on your belly. Imagine the muscles melting like butter under a warm sun.',
+        'Hands': 'Try "Clench and Release": Make a tight fist for 5 seconds, then splay your fingers out as wide as possible.',
+        'Feet': 'Try "Ground Pressing": Push your big toes into the floor as hard as you can, hold, and then let the tension drain into the earth.'
+    };
+
+    // Use existing startEntry logic to create a structured workbook
+    startEntry(`Body Scan: Tension in ${part}`);
+    
+    textArea.value = `[SENSATION CHECK]
+I am feeling tension in my: ${part}
+What does it feel like? (Sharp, heavy, buzzing, tight?): 
+Does this tension remind me of a specific stressor or event?: 
+
+[RELEASE EXERCISE]
+${exercises[part] || 'Take 3 deep breaths, sending the air toward that part of your body.'}
+
+[REFLECTION]
+How does that area feel after the exercise?: `;
+
+    textArea.focus();
 }
 
+// 3. THOUGHT REFRAMER (FIXED)
 function toggleReframer() {
     const el = document.getElementById("reframerOverlay");
-    el.style.display === "none" ? (closeAllOverlays(), el.style.display = "block") : closeAllOverlays();
+    if (el.style.display === "none") {
+        closeAllOverlays();
+        el.style.display = "block";
+        document.getElementById("mainEntryCard").style.opacity = "0.2";
+    } else {
+        closeAllOverlays();
+    }
 }
 
 function reframe(type) {
-    document.getElementById("journalText").value += `\n[Cognitive Check: Recognizing this as a ${type.toUpperCase()}] `;
-    toggleReframer();
+    closeAllOverlays();
+    const textArea = document.getElementById("journalText");
+
+    if (type === 'Fact') {
+        startEntry("Reframing: Analyzing the Fact");
+        textArea.value = "OBJECTIVE FACT CHECK\nThe situation is: \nIs this within my control? \nWhat is one small step I can take regarding this? \nHow can I accept this fact without judging myself?";
+    } else {
+        startEntry("Reframing: Validating the Feeling");
+        textArea.value = "EMOTIONAL VALIDATION\n I am feeling: \n Why does this feeling make sense right now? \nWhat is this feeling trying to tell me? \nWhat do I need right now to feel supported?";
+    }
+    textArea.focus();
 }
 
+// 4. SENSORY RESET
 function toggleSensory() {
     const el = document.getElementById("sensoryOverlay");
-    if (el.style.display === "none") { 
-        closeAllOverlays(); 
-        el.style.display = "block"; 
-        nextSensory(); 
-    } else { 
-        closeAllOverlays(); 
+    if (el.style.display === "none") {
+        closeAllOverlays();
+        el.style.display = "block";
+        document.getElementById("mainEntryCard").style.opacity = "0.2";
+        nextSensory();
+    } else {
+        closeAllOverlays();
     }
 }
 
@@ -245,6 +276,7 @@ function nextSensory() {
     document.getElementById("sensoryTask").innerText = tasks[Math.floor(Math.random() * tasks.length)];
 }
 
+// 5. VOICE TO TEXT
 function startVoiceEntry() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return alert("Voice recognition not supported.");
@@ -252,10 +284,3 @@ function startVoiceEntry() {
     recognition.onresult = (e) => document.getElementById("journalText").value += e.results[0][0].transcript;
     recognition.start();
 }
-
-// Draft Save
-document.getElementById("journalText").addEventListener("input", (e) => {
-    if (!editingId) { 
-        localStorage.setItem("journalDraft", e.target.value);
-    }
-});
