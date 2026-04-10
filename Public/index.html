@@ -1,101 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Eunoia | Login</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eunoia | Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Ensuring the layout is ready even if styles.css is loading */
+        .login-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+        .card { padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .input-group { position: relative; margin-bottom: 1rem; display: flex; align-items: center; }
+        .input-group input { width: 100%; padding: 10px 35px; border: 1px solid #ddd; border-radius: 6px; }
+        .input-group .icon { position: absolute; left: 10px; }
+        .input-group .toggle { left: auto; right: 10px; cursor: pointer; }
+        .footer-text { text-align: center; margin-top: 15px; font-size: 0.9rem; }
+        button { width: 100%; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    </style>
 </head>
-<body>
+<body class="auth-page">
 
-  <!-- PAGE WRAPPER FOR FLEXBOX CENTERING -->
-  <div class="login-page">
-    <!-- BRAND / HEADER -->
-    <header class="brand">
-      <span class="logo">📖</span>
-      <h1>Eunoia</h1>
-      <p>Welcome back</p>
-    </header>
+    <div class="login-page">
+        <header class="brand" style="text-align: center; margin-bottom: 20px;">
+            <span class="logo" style="font-size: 3rem;">📖</span>
+            <h1 style="margin: 10px 0 5px;">Eunoia</h1>
+            <p id="welcomeMessage" style="color: #666;">Welcome back</p>
+        </header>
 
-    <!-- LOGIN CARD -->
-    <main class="login-card card">
-      <h2>Login</h2>
+        <main class="login-card card">
+            <h2 style="margin-top: 0;">Login</h2>
+            <form id="loginForm">
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <span class="icon">✉️</span>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
 
-      <!-- LOGIN FORM -->
-      <form id="loginForm" method="POST" action="/login">
-        <label for="email">Email</label>
-        <div class="input-group">
-          <span class="icon">✉️</span>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required />
-        </div>
+                <label for="password">Password</label>
+                <div class="input-group">
+                    <span class="icon">🔒</span>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                    <span class="icon toggle" onclick="togglePassword('password')">👁️</span>
+                </div>
 
-        <label for="password">Password</label>
-        <div class="input-group">
-          <span class="icon">🔒</span>
-          <input type="password" id="password" name="password" placeholder="••••••••" required />
-          <span class="icon toggle" onclick="togglePassword()">👁️</span>
-        </div>
+                <button type="submit" style="background-color: var(--dusty-blue, #5d8aa8); color: white;">Login</button>
+            </form>
 
-        <button type="submit">Login</button>
-      </form>
+            <p class="footer-text">
+                Don’t have an account? 
+                <a href="#" onclick="showSignup()" style="color: var(--dusty-blue, #5d8aa8); font-weight: bold;">Sign Up</a>
+            </p>
+        </main>
 
-      <p class="footer-text">
-        Don’t have an account?
-        <a href="#" onclick="showSignup()">Sign Up</a>
-      </p>
-    </main>
+        <main class="signup-card card" style="display:none;">
+            <h2 style="margin-top: 0;">Sign Up</h2>
+            <form id="signupForm">
+                <label for="name">Name</label>
+                <div class="input-group">
+                    <span class="icon">👤</span>
+                    <input type="text" id="name" placeholder="Your Name" required>
+                </div>
 
-    <!-- SIGNUP CARD (HIDDEN BY DEFAULT) -->
-    <main class="signup-card card" style="display:none;">
-      <h2>Sign Up</h2>
+                <label for="email-signup">Email</label>
+                <div class="input-group">
+                    <span class="icon">✉️</span>
+                    <input type="email" id="email-signup" placeholder="your@email.com" required>
+                </div>
 
-      <form id="signupForm" method="POST" action="/register">
-        <label for="name">Name</label>
-        <div class="input-group">
-          <span class="icon">👤</span>
-          <input type="text" id="name" name="name" placeholder="Your Name" required />
-        </div>
+                <label for="password-signup">Password</label>
+                <div class="input-group">
+                    <span class="icon">🔒</span>
+                    <input type="password" id="password-signup" placeholder="••••••••" required>
+                    <span class="icon toggle" onclick="togglePassword('password-signup')">👁️</span>
+                </div>
+                
+                <ul style="font-size: 0.75rem; color: #666; padding-left: 15px; margin-bottom: 15px;">
+                    <li>At least 8 characters</li>
+                    <li>Must include a number</li>
+                    <li>Must include a symbol (!@#$%^&*)</li>
+                </ul>
 
-        <label for="email-signup">Email</label>
-        <div class="input-group">
-          <span class="icon">✉️</span>
-          <input type="email" id="email-signup" name="email" placeholder="your@email.com" required />
-        </div>
+                <button type="submit" style="background-color: var(--muted-sage, #8da399); color: white;">Create Account</button>
+            </form>
 
-        <label for="password-signup">Password</label>
-        <div class="input-group">
-          <span class="icon">🔒</span>
-          <input type="password" id="password-signup" name="password" placeholder="••••••••" required />
-          <span class="icon toggle" onclick="togglePassword('password-signup')">👁️</span>
-        </div>
+            <p class="footer-text">
+                Already have an account? 
+                <a href="#" onclick="showLogin()" style="color: var(--muted-sage, #8da399); font-weight: bold;">Login</a>
+            </p>
+        </main>
+    </div>
 
-        <button type="submit">Sign Up</button>
-      </form>
+    <script>
+        // 1. UI NAVIGATION
+        window.togglePassword = function(id) {
+            const field = document.getElementById(id);
+            if (field) field.type = field.type === 'password' ? 'text' : 'password';
+        };
 
-      <p class="footer-text">
-        Already have an account?
-        <a href="#" onclick="showLogin()">Login</a>
-      </p>
-    </main>
-  </div>
+        window.showSignup = function() {
+            document.querySelector('.login-card').style.display = 'none';
+            document.querySelector('.signup-card').style.display = 'block';
+            document.getElementById('welcomeMessage').innerText = "Join our community";
+        };
 
-  <script>
-    // PASSWORD TOGGLE FUNCTION
-    function togglePassword(fieldId = 'password') {
-      const pass = document.getElementById(fieldId);
-      pass.type = pass.type === 'password' ? 'text' : 'password';
-    }
+        window.showLogin = function() {
+            document.querySelector('.signup-card').style.display = 'none';
+            document.querySelector('.login-card').style.display = 'block';
+            updateGreeting();
+        };
 
-    // TOGGLE BETWEEN LOGIN AND SIGNUP
-    function showSignup() {
-      document.querySelector('.login-card').style.display = 'none';
-      document.querySelector('.signup-card').style.display = 'block';
-    }
+        // 2. VALIDATION UTILS
+        const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        const isSecurePassword = (pass) => /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(pass);
 
-    function showLogin() {
-      document.querySelector('.signup-card').style.display = 'none';
-      document.querySelector('.login-card').style.display = 'block';
-    }
-  </script>
+        // 3. SIGNUP HANDLER
+        const signupForm = document.getElementById('signupForm');
+        if (signupForm) {
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email-signup').value.trim();
+                const pass = document.getElementById('password-signup').value;
+
+                if (!isValidEmail(email)) return alert("Please include a valid email (example@domain.com)");
+                if (!isSecurePassword(pass)) return alert("Password too weak! Ensure it has 8+ characters, a number, and a symbol.");
+
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+                if (users.find(u => u.email === email)) return alert("This email is already registered.");
+
+                users.push({ name, email, password: pass });
+                localStorage.setItem('users', JSON.stringify(users));
+
+                alert(`Success! Welcome to Eunoia, ${name}.`);
+                this.reset();
+                showLogin();
+            });
+        }
+
+        // 4. LOGIN HANDLER
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value.trim();
+                const pass = document.getElementById('password').value;
+
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(u => u.email === email && u.password === pass);
+
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    alert(`Welcome back, ${user.name}!`);
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert("Incorrect email or password. Please try again.");
+                }
+            });
+        }
+
+        // 5. GREETING LOGIC
+        function updateGreeting() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const welcomeText = document.getElementById('welcomeMessage');
+            if (user && welcomeText) {
+                welcomeText.innerText = `Welcome back, ${user.name}`;
+            }
+        }
+
+        window.onload = updateGreeting;
+    </script>
 </body>
 </html>
-<script src="script.js"></script>

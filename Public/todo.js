@@ -4,18 +4,36 @@ let currentFilter = "all";
 let timerInterval = null;
 let timeLeft = 25 * 60; // 25 minutes in seconds
 
-// --- TASK & SUB-TASK LOGIC ---
+// --- CORE UTILITIES ---
+function saveAndRender() {
+    localStorage.setItem("eunoiaTasks", JSON.stringify(tasks));
+    renderTasks();
+    if (typeof updateDeadlines === "function") updateDeadlines();
+}
+
+function calculatePriority(deadline) {
+    const today = new Date();
+    const due = new Date(deadline);
+    const diff = (due - today) / (1000 * 60 * 60 * 24);
+    if (diff <= 3) return "!!!";
+    if (diff <= 7) return "!!";
+    return "!";
+}
+
+// --- TASK ACTIONS ---
 function addTask() {
-    const text = document.getElementById("taskInput").value.trim();
-    const deadline = document.getElementById("deadlineInput").value;
+    const taskInput = document.getElementById("taskInput");
+    const deadlineInput = document.getElementById("deadlineInput");
     const subInputFields = document.querySelectorAll(".sub-input-field");
+    
+    const text = taskInput.value.trim();
+    const deadline = deadlineInput.value;
     
     if (!text || !deadline) {
         alert("Please enter a task and a deadline.");
         return;
     }
 
-    // Capture non-empty sub-tasks
     let subTasks = [];
     subInputFields.forEach(field => {
         if (field.value.trim() !== "") {
@@ -32,77 +50,46 @@ function addTask() {
         subTasks: subTasks 
     });
 
-    // Clear inputs
-    document.getElementById("taskInput").value = "";
+    taskInput.value = "";
+    deadlineInput.value = "";
     subInputFields.forEach(f => f.value = "");
+
+    localStorage.removeItem("todoTaskDraft");
+    
     saveAndRender();
 }
 
-// FIXED: Added missing Priority Calculation
-function calculatePriority(deadline) {
-    const today = new Date();
-    const due = new Date(deadline);
-    const diff = (due - today) / (1000 * 60 * 60 * 24);
-    if (diff <= 3) return "!!!";
-    if (diff <= 7) return "!!";
-    return "!";
-}
+window.deleteTask = function(id) {
+    tasks = tasks.filter(t => t.id !== id);
+    saveAndRender();
+};
 
-// FIXED: Added missing Toggle and Delete functions
-function toggleTask(id) {
+window.toggleTask = function(id) {
     const task = tasks.find(t => t.id === id);
     if (task) task.completed = !task.completed;
     saveAndRender();
-}
+};
 
-function deleteTask(id) {
-    tasks = tasks.filter(task => task.id !== id);
-    saveAndRender();
-}
-
-function toggleSubTask(taskId, subIdx) {
+window.toggleSubTask = function(taskId, subIdx) {
     const task = tasks.find(t => t.id === taskId);
     if (task && task.subTasks[subIdx]) {
         task.subTasks[subIdx].completed = !task.subTasks[subIdx].completed;
         saveAndRender();
     }
-}
+};
 
-// NEW: Filter Logic
-function filterTasks(priority) {
+// --- FILTER LOGIC ---
+window.filterTasks = function(priority) {
     currentFilter = priority;
     document.querySelectorAll(".filter-btn").forEach(btn => {
-        const isMatch = (priority === "all" && btn.innerText === "All") || btn.innerText === priority;
+        const btnText = btn.innerText.trim();
+        const isMatch = (priority === "all" && btnText === "All") || btnText === priority;
         btn.classList.toggle("active", isMatch);
     });
     renderTasks();
-}
+};
 
-// FIXED: Added Deadline Sorting Logic
-function updateDeadlines() {
-    const deadlineList = document.getElementById("deadlineList");
-    if (!deadlineList) return;
-
-    let activeDeadlines = tasks.filter(t => !t.completed && t.deadline);
-    activeDeadlines.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
-
-    deadlineList.innerHTML = "";
-    activeDeadlines.forEach(task => {
-        const today = new Date();
-        const dueDate = new Date(task.deadline);
-        const diffDays = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
-
-        let label = diffDays <= 3 ? "Urgent" : "Soon";
-        let color = diffDays <= 3 ? "#c97b7b" : "var(--accent-blue)";
-        if (diffDays < 0) { label = "Overdue"; color = "#a34b4b"; }
-
-        const pill = document.createElement("div");
-        pill.className = "deadline-pill";
-        pill.innerHTML = `<strong style="color: ${color};">${label}:</strong> ${task.text} (${diffDays}d)`;
-        deadlineList.appendChild(pill);
-    });
-}
-
+// --- RENDERING ---
 function renderTasks() {
     const list = document.getElementById("taskList");
     if (!list) return;
@@ -122,7 +109,7 @@ function renderTasks() {
             task.subTasks.forEach((sub, idx) => {
                 subHtml += `
                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 0.85rem; color: #5d7382;">
-                        <input type="checkbox" ${sub.completed ? 'checked' : ''} onclick="toggleSubTask(${task.id}, ${idx})" style="width: 14px; height: 14px;">
+                        <input type="checkbox" ${sub.completed ? 'checked' : ''} onclick="toggleSubTask(${task.id}, ${idx})">
                         <span style="${sub.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}">${sub.text}</span>
                     </div>`;
             });
@@ -137,7 +124,14 @@ function renderTasks() {
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span style="font-size: 0.75rem; font-weight: 800; color: ${accent}">${task.priority}</span>
-                    <button onclick="deleteTask(${task.id})" style="background: none; border: none; color: #c97b7b; cursor: pointer;">🗑️</button>
+                    <button class="delete-btn" onclick="deleteTask(${task.id})" style="background:none; border:none; cursor:pointer; color:#bcc6cc;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </button>
                 </div>
             </div>
             ${subHtml}
@@ -145,12 +139,36 @@ function renderTasks() {
         list.appendChild(div);
     });
     
-    const pendingEl = document.getElementById("pendingCount");
-    if (pendingEl) pendingEl.innerText = tasks.filter(t => !t.completed).length;
+    const pendingCount = document.getElementById("pendingCount");
+    if (pendingCount) pendingCount.innerText = tasks.filter(t => !t.completed).length;
+}
+
+function updateDeadlines() {
+    const deadlineList = document.getElementById("deadlineList");
+    if (!deadlineList) return;
+
+    let activeDeadlines = tasks.filter(t => !t.completed && t.deadline);
+    activeDeadlines.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+
+    deadlineList.innerHTML = "";
+    activeDeadlines.forEach(task => {
+        const today = new Date();
+        const dueDate = new Date(task.deadline);
+        const diffDays = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+
+        let label = diffDays <= 3 ? "Urgent" : "Soon";
+        let color = diffDays <= 3 ? "#c97b7b" : "var(--accent-blue)";
+        if (diffDays < 0) { label = "Overdue"; color = "#a34b4b"; }
+        
+        const pill = document.createElement("div");
+        pill.className = "deadline-pill";
+        pill.innerHTML = `<strong style="color: ${color};">${label}:</strong> ${task.text} (${diffDays}d)`;
+        deadlineList.appendChild(pill);
+    });
 }
 
 // --- FOCUS TIMER LOGIC ---
-function toggleTimer() {
+window.toggleTimer = function() {
     const btn = document.getElementById("timerBtn");
     if (timerInterval) {
         clearInterval(timerInterval);
@@ -169,38 +187,40 @@ function toggleTimer() {
             }
         }, 1000);
     }
-}
+};
 
-function resetTimer() {
+window.resetTimer = function() {
     clearInterval(timerInterval);
     timerInterval = null;
     timeLeft = 25 * 60;
     updateTimerDisplay();
-    document.getElementById("timerBtn").innerText = "Start Focus";
-}
+    const btn = document.getElementById("timerBtn");
+    if (btn) btn.innerText = "Start Focus";
+};
 
 function updateTimerDisplay() {
+    const display = document.getElementById("timerDisplay");
+    if (!display) return;
     const mins = Math.floor(timeLeft / 60);
     const secs = timeLeft % 60;
-    document.getElementById("timerDisplay").innerText = 
-        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
-// 2. REPLACE YOUR EXISTING saveAndRender FUNCTION
-function saveAndRender() {
-    // This line converts your tasks into a string and saves it
-    localStorage.setItem("eunoiaTasks", JSON.stringify(tasks));
-    
-    renderTasks();
-    
-    // Check if updateDeadlines exists before calling it to prevent errors
-    if (typeof updateDeadlines === "function") {
-        updateDeadlines();
-    }
-}
+// --- INITIALIZATION ---
+document.addEventListener("DOMContentLoaded", () => {
+    const addBtn = document.querySelector(".add-task-btn");
+    if(addBtn) addBtn.addEventListener("click", addTask);
 
-// Initial Load
-window.onload = function() {
+    // 1. LOAD DRAFT
+    const savedTask = localStorage.getItem("todoTaskDraft");
+    if (savedTask) document.getElementById("taskInput").value = savedTask;
+
+    // 2. ATTACH DRAFT LISTENER
+    document.getElementById("taskInput").addEventListener("input", (e) => {
+        localStorage.setItem("todoTaskDraft", e.target.value);
+    });
+
     renderTasks();
     updateDeadlines();
-};
+    updateTimerDisplay();
+});

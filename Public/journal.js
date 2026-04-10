@@ -1,20 +1,30 @@
 let currentPrompt = "Free Write";
+let editingId = null; // Track if we are editing an existing entry
 const energyMeter = document.getElementById('energyMeter');
 const energyValue = document.getElementById('energyValue');
 
 // --- INITIALIZATION ---
 window.onload = () => {
-    displayEntries();
-    if (energyMeter) {
-        energyMeter.addEventListener('input', updateSliderFill);
-        updateSliderFill(); 
-    }
+  displayEntries();
+  
+  // LOAD DRAFT
+  const savedDraft = localStorage.getItem("journalDraft");
+  if (savedDraft) {
+      document.getElementById("journalText").value = savedDraft;
+  }
+
+  if (energyMeter) {
+      energyMeter.addEventListener('input', updateSliderFill);
+      updateSliderFill(); 
+  }
 };
 
 // --- CORE JOURNAL FUNCTIONS ---
 function startEntry(promptText) {
     currentPrompt = promptText;
+    editingId = null; // Reset editing mode
     document.getElementById("entryTitle").innerText = promptText;
+    document.getElementById("journalText").value = "";
     document.getElementById("journalText").focus();
 }
 
@@ -22,20 +32,55 @@ function saveEntry() {
     const text = document.getElementById("journalText").value.trim();
     if (!text) return alert("Please write something first.");
 
-    const entry = {
-        id: Date.now(),
-        prompt: currentPrompt,
-        content: text,
-        energy: energyMeter.value,
-        date: new Date().toLocaleString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
-    };
-
     let entries = JSON.parse(localStorage.getItem("journalEntries")) || [];
-    entries.unshift(entry);
+
+    if (editingId) {
+        // --- EDIT MODE ---
+        const index = entries.findIndex(e => e.id === editingId);
+        if (index !== -1) {
+            entries[index].content = text;
+            entries[index].energy = energyMeter.value;
+            // Optionally update the date to show it was edited
+            entries[index].date += " (edited)"; 
+        }
+        editingId = null; // Clear editing state
+    } else {
+        // --- NEW ENTRY MODE ---
+        const entry = {
+            id: Date.now(),
+            prompt: currentPrompt,
+            content: text,
+            energy: energyMeter.value,
+            date: new Date().toLocaleString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+        };
+        entries.unshift(entry);
+    }
+
     localStorage.setItem("journalEntries", JSON.stringify(entries));
     
     document.getElementById("journalText").value = "";
+    document.getElementById("entryTitle").innerText = "Free Write";
     displayEntries();
+}
+
+function editEntry(id) {
+    const entries = JSON.parse(localStorage.getItem("journalEntries")) || [];
+    const entryToEdit = entries.find(e => e.id === id);
+
+    if (entryToEdit) {
+        editingId = id; // Set the global editing ID
+        currentPrompt = entryToEdit.prompt;
+        
+        // Fill the UI with existing data
+        document.getElementById("entryTitle").innerText = `Editing: ${entryToEdit.prompt}`;
+        document.getElementById("journalText").value = entryToEdit.content;
+        energyMeter.value = entryToEdit.energy;
+        updateSliderFill();
+        
+        // Scroll to the top so the user sees the editor
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.getElementById("journalText").focus();
+    }
 }
 
 function displayEntries() {
@@ -43,18 +88,38 @@ function displayEntries() {
     const container = document.getElementById("entriesList");
     container.innerHTML = "";
 
+    if (entries.length === 0) {
+        container.innerHTML = "<p style='color:var(--text-muted); text-align:center; padding:20px;'>No entries yet. Start writing above!</p>";
+        return;
+    }
+
     entries.forEach(entry => {
         const div = document.createElement("div");
         div.className = "entry-card";
         div.innerHTML = `
-            <div class="entry-header">
+            <div class="entry-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <strong>${entry.prompt}</strong>
                 <span class="energy-badge">⚡ ${entry.energy}/10</span>
             </div>
-            <p>${entry.content}</p>
-            <div class="entry-footer">
-                <small>${entry.date}</small>
-                <button class="del-btn" onclick="deleteEntry(${entry.id})">🗑️</button>
+            <p style="margin: 15px 0;">${entry.content}</p>
+            <div class="entry-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                <small style="color: var(--text-muted);">${entry.date}</small>
+                <div style="display: flex; gap: 10px;">
+                    <button class="edit-btn" onclick="editEntry(${entry.id})" aria-label="Edit entry" style="background:none; border:none; cursor:pointer; color:var(--dusty-blue);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                    </button>
+                    <button class="del-btn" onclick="deleteEntry(${entry.id})" aria-label="Delete entry">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </button>
+                </div>
             </div>
         `;
         container.appendChild(div);
@@ -62,6 +127,7 @@ function displayEntries() {
 }
 
 function deleteEntry(id) {
+    if (!confirm("Are you sure you want to delete this entry?")) return;
     let entries = JSON.parse(localStorage.getItem("journalEntries")) || [];
     localStorage.setItem("journalEntries", JSON.stringify(entries.filter(e => e.id !== id)));
     displayEntries();
@@ -158,3 +224,10 @@ function startVoiceEntry() {
     recognition.onresult = (e) => document.getElementById("journalText").value += e.results[0][0].transcript;
     recognition.start();
 }
+// --- DRAFT PERSISTENCE ---
+// Saves the draft as the user types
+document.getElementById("journalText").addEventListener("input", (e) => {
+  if (!editingId) { 
+      localStorage.setItem("journalDraft", e.target.value);
+  }
+});

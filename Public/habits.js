@@ -13,124 +13,103 @@ function getLast7Days() {
     for (let i = 6; i >= 0; i--) {
         const d = new Date();
         d.setDate(d.getDate() - i);
-        days.push(d.toISOString().split("T")[0]);
+        days.push({
+            full: d.toISOString().split("T")[0],
+            short: d.toLocaleDateString('en-US', { weekday: 'short' }),
+            num: d.getDate()
+        });
     }
     return days;
 }
 
-function addHabit() {
+// Add New Habit
+document.querySelector(".habit-add-btn").addEventListener("click", () => {
     const input = document.getElementById("habitInput");
     const name = input.value.trim();
     if (!name) return;
 
-    habits.push({
-        name,
-        dates: []
-    });
-
+    habits.push({ id: Date.now(), name, dates: [] });
     input.value = "";
     saveHabits();
     render();
-}
+});
 
 function toggleHabit(index) {
     const today = getToday();
     const habit = habits[index];
-
     if (habit.dates.includes(today)) {
         habit.dates = habit.dates.filter(d => d !== today);
     } else {
         habit.dates.push(today);
     }
-
     saveHabits();
     render();
 }
 
-function deleteHabit(index) {
-    habits.splice(index, 1);
+function deleteHabit(id) {
+    habits = habits.filter(h => h.id !== id);
     saveHabits();
     render();
-}
-
-function editHabit(index) {
-    const newName = prompt("Edit habit name:", habits[index].name);
-    if (newName && newName.trim()) {
-        habits[index].name = newName.trim();
-        saveHabits();
-        render();
-    }
 }
 
 function calculateStreak(dates) {
     let streak = 0;
-    let current = new Date();
-
-    while (dates.includes(current.toISOString().split("T")[0])) {
+    let checkDate = new Date();
+    while (dates.includes(checkDate.toISOString().split("T")[0])) {
         streak++;
-        current.setDate(current.getDate() - 1);
+        checkDate.setDate(checkDate.getDate() - 1);
     }
-
     return streak;
 }
 
-function renderTracker() {
-    const list = document.getElementById("habitList");
-    list.innerHTML = "";
-
-    habits.forEach((habit, index) => {
-        const checked = habit.dates.includes(getToday());
-
-        list.innerHTML += `
-            <div class="habit-item">
-                <div class="habit-left">
-                    <input type="checkbox" ${checked ? "checked" : ""}
-                        onchange="toggleHabit(${index})">
-                    <span>${habit.name}</span>
-                </div>
-                <div class="actions">
-                    <button onclick="editHabit(${index})">✏️</button>
-                    <button onclick="deleteHabit(${index})">🗑️</button>
-                </div>
-            </div>
-        `;
-    });
-}
-
-function renderHistory() {
-    const container = document.getElementById("habitHistory");
-    container.innerHTML = "";
-
+function render() {
+    const habitList = document.getElementById("habitList");
+    const tableHeader = document.getElementById("tableHeader");
+    const tableBody = document.getElementById("habitHistoryBody");
     const days = getLast7Days();
 
-    container.innerHTML += `
-        <div class="history-row history-header">
-            <div>Habit</div>
-            ${days.map(d => `<div class="day">${new Date(d).getDate()}</div>`).join("")}
-            <div>Streak</div>
-        </div>
-    `;
+    // 1. Render Upper Tracker
+    // Inside your render function, update the habitList.innerHTML mapping:
 
-    habits.forEach(habit => {
+habitList.innerHTML = habits.map((habit, index) => `
+<div class="habit-item">
+    <div class="habit-left">
+        <input type="checkbox" class="habit-checkbox" 
+            ${habit.dates.includes(getToday()) ? "checked" : ""} 
+            onchange="toggleHabit(${index})">
+        <span style="font-weight:500; color:#3f5363;">${habit.name}</span>
+    </div>
+    <div class="habit-actions">
+        <button class="delete-btn" onclick="deleteHabit(${habit.id})" aria-label="Delete habit">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+        </button>
+    </div>
+</div>
+`).join("");
+
+    // 2. Render Table Header
+    tableHeader.innerHTML = `<th>Habit</th>` + 
+        days.map(d => `<th>${d.short}<br>${d.num}</th>`).join("") + 
+        `<th>Streak</th>`;
+
+    // 3. Render Table Rows
+    tableBody.innerHTML = habits.map(habit => {
         const streak = calculateStreak(habit.dates);
-
-        container.innerHTML += `
-            <div class="history-row">
-                <div>${habit.name}</div>
+        return `
+            <tr>
+                <td>${habit.name}</td>
                 ${days.map(d => `
-                    <div class="circle ${habit.dates.includes(d) ? "completed" : ""}"></div>
+                    <td><div class="table-dot ${habit.dates.includes(d.full) ? "completed" : ""}"></div></td>
                 `).join("")}
-                <div class="streak">${streak}</div>
-            </div>
+                <td><span class="streak-badge">${streak}</span></td>
+            </tr>
         `;
-    });
+    }).join("");
 }
-
-function render() {
-    renderTracker();
-    renderHistory();
-}
-
-document.querySelector(".add-btn").addEventListener("click", addHabit);
 
 render();
