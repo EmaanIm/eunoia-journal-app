@@ -7,17 +7,27 @@ const energyValue = document.getElementById('energyValue');
 window.onload = () => {
     displayEntries();
     
+    const textArea = document.getElementById("journalText");
+    const energyMeter = document.getElementById('energyMeter');
+
     const savedDraft = localStorage.getItem("journalDraft");
-    if (savedDraft && document.getElementById("journalText")) {
-        document.getElementById("journalText").value = savedDraft;
+    if (savedDraft && textArea) {
+        textArea.value = savedDraft;
     }
 
     if (energyMeter) {
         energyMeter.addEventListener('input', updateSliderFill);
         updateSliderFill(); 
     }
-};
 
+    // COLOR SWITCHER: Changes text color from Sage to Normal when user types
+    if (textArea) {
+        textArea.addEventListener('input', () => {
+            textArea.classList.remove('is-prompt');
+            textArea.classList.add('is-typing');
+        });
+    }
+};
 // --- CORE JOURNAL FUNCTIONS ---
 function startEntry(promptText) {
     currentPrompt = promptText;
@@ -136,9 +146,13 @@ function closeAllOverlays() {
     });
     const mainCard = document.getElementById("mainEntryCard");
     if (mainCard) mainCard.style.opacity = "1";
+    
+    // Reset title color to default unless we are in a specific mode
+    const titleEl = document.getElementById("entryTitle");
+    if (titleEl) titleEl.classList.remove('title-fact', 'title-feeling', 'title-body');
 }
 
-// 1. GROUNDING LOGIC
+// 1. GROUNDING
 let miniStep = 0;
 const groundingData = [
     { step: "5 - See", desc: "Look around. Name 5 things you can see." },
@@ -189,7 +203,7 @@ function nextGroundingStep() {
     }
 }
 
-// 2. BODY SCAN
+// 2. BODY SCAN (With Somatic Exercises & Color)
 function toggleBodyScan() {
     const el = document.getElementById("bodyScanOverlay");
     if (el.style.display === "none") {
@@ -204,35 +218,29 @@ function toggleBodyScan() {
 function logBodyPart(part) {
     closeAllOverlays();
     const textArea = document.getElementById("journalText");
+    const titleEl = document.getElementById("entryTitle");
     
-    // Define area-specific release exercises
+    // Set color to prompt mode
+    textArea.classList.remove('is-typing');
+    textArea.classList.add('is-prompt'); 
+
     const exercises = {
-        'Head': 'Try a "Jaw Drop": Let your mouth hang open slightly and move your jaw side to side, or gently massage your temples.',
-        'Shoulders': 'Try "Shoulder Shrugs": Inhale deeply while pulling shoulders to ears, hold for 3 seconds, and drop them heavily on the exhale.',
-        'Chest': 'Try "Box Breathing": Inhale for 4, hold for 4, exhale for 4, hold for 4. Feel your ribs expand and contract.',
-        'Stomach': 'Try "Abdominal Softening": Place a hand on your belly. Imagine the muscles melting like butter under a warm sun.',
-        'Hands': 'Try "Clench and Release": Make a tight fist for 5 seconds, then splay your fingers out as wide as possible.',
-        'Feet': 'Try "Ground Pressing": Push your big toes into the floor as hard as you can, hold, and then let the tension drain into the earth.'
+        'Head': 'Try a "Jaw Drop": Let your mouth hang open slightly and move your jaw side to side.',
+        'Shoulders': 'Try "Shoulder Shrugs": Inhale shoulders to ears, hold, then drop heavily on exhale.',
+        'Chest': 'Try "Box Breathing": Inhale for 4, hold for 4, exhale for 4, hold for 4.',
+        'Stomach': 'Try "Abdominal Softening": Place a hand on your belly and imagine the muscles melting.',
+        'Hands': 'Try "Clench and Release": Make a tight fist for 5 seconds, then splay fingers wide.',
+        'Feet': 'Try "Ground Pressing": Push your big toes into the floor, then release the tension.'
     };
 
-    // Use existing startEntry logic to create a structured workbook
     startEntry(`Body Scan: Tension in ${part}`);
-    
-    textArea.value = `[SENSATION CHECK]
-I am feeling tension in my: ${part}
-What does it feel like? (Sharp, heavy, buzzing, tight?): 
-Does this tension remind me of a specific stressor or event?: 
+    titleEl.classList.add('title-body'); 
 
-[RELEASE EXERCISE]
-${exercises[part] || 'Take 3 deep breaths, sending the air toward that part of your body.'}
-
-[REFLECTION]
-How does that area feel after the exercise?: `;
-
+    textArea.value = `[SENSATION CHECK]\nI am feeling tension in my: ${part}\nWhat does it feel like? (Sharp, heavy, buzzing, tight?): \n\n[RELEASE EXERCISE]\n${exercises[part] || 'Take 3 deep breaths into that area.'}\n\n[REFLECTION]\nHow does that area feel now?: `;
     textArea.focus();
 }
 
-// 3. THOUGHT REFRAMER (FIXED)
+// 3. THOUGHT REFRAMER (With Prompts & Color)
 function toggleReframer() {
     const el = document.getElementById("reframerOverlay");
     if (el.style.display === "none") {
@@ -247,13 +255,20 @@ function toggleReframer() {
 function reframe(type) {
     closeAllOverlays();
     const textArea = document.getElementById("journalText");
+    const titleEl = document.getElementById("entryTitle");
+
+    // Set color to prompt mode
+    textArea.classList.remove('is-typing');
+    textArea.classList.add('is-prompt'); 
 
     if (type === 'Fact') {
         startEntry("Reframing: Analyzing the Fact");
+        titleEl.classList.add('title-fact');
         textArea.value = "OBJECTIVE FACT CHECK\nThe situation is: \nIs this within my control? \nWhat is one small step I can take regarding this? \nHow can I accept this fact without judging myself?";
     } else {
         startEntry("Reframing: Validating the Feeling");
-        textArea.value = "EMOTIONAL VALIDATION\n I am feeling: \n Why does this feeling make sense right now? \nWhat is this feeling trying to tell me? \nWhat do I need right now to feel supported?";
+        titleEl.classList.add('title-feeling');
+        textArea.value = "EMOTIONAL VALIDATION\nI am feeling: \nWhy does this feeling make sense right now? \nWhat is this feeling trying to tell me? \nWhat do I need right now to feel supported?";
     }
     textArea.focus();
 }

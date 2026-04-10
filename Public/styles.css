@@ -1802,3 +1802,18 @@ label {
     justify-content: center;
     gap: 10px;
 }
+/* Add these to your styles.css */
+.title-fact { color: #6c7a89 !important; font-weight: bold; }
+.title-feeling { color: #d9a29c !important; font-weight: bold; }
+.title-body { color: #a5b3a0 !important; font-weight: bold; }
+/* This makes the suggested prompt text look distinct */
+.is-prompt {
+    color: #5b5656 !important; /* Sage green */
+    font-style: italic;
+}
+
+/* This is the normal color for when the user is typing */
+.is-typing {
+    color: #1e2429 !important;
+    font-style: normal;
+}
