@@ -1767,3 +1767,38 @@ label {
     cursor: pointer;
     margin-top: 20px;
 }
+/* Neuro-Tool Buttons */
+.tool-btn {
+    background: #f8f9fa;
+    border: 1px solid #dcdde1;
+    color: #6c7a89;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: 0.2s;
+}
+
+.tool-btn:hover {
+    background: #6c7a89;
+    color: white;
+}
+
+.hint-text {
+    color: #7f8c8d;
+    font-style: italic;
+    background: #f9fbf9;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 4px solid #9fb094; /* Sage Green */
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.grounding-tool-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}

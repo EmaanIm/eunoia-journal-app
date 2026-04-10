@@ -28,30 +28,28 @@ function updateStep() {
     document.getElementById('stepNum').innerText = s.count;
     document.getElementById('pBar').style.width = ((currentStep + 1) / 5 * 100) + "%";
     
-    inputStack.innerHTML = ""; // Clear the area
+    inputStack.innerHTML = ""; 
 
     // 1. Set the Instruction Text
-    if (mode === 'quick') {
-        instruction.innerHTML = `Quickly spot <span style="color:#6c7a89">${s.count}</span> thing(s) you can ${s.prompt}.`;
-    } else {
-        instruction.innerHTML = `Take a deep breath. Find <span style="color:#6c7a89">${s.count}</span> things to ${s.prompt}.`;
-    }
+    instruction.innerHTML = mode === 'quick' 
+        ? `Quickly spot <span style="color:#6c7a89">${s.count}</span> thing(s) you can ${s.prompt}.`
+        : `Take a deep breath. Find <span style="color:#6c7a89">${s.count}</span> things to ${s.prompt}.`;
 
-    // 2. Handle Interaction (Inputs vs. No Inputs)
+    // 2. Add the Neurodivergent Tools (Scrambler, Sounds, etc.)
+    const toolDiv = document.createElement('div');
+    toolDiv.className = "grounding-tool-container";
+    toolDiv.innerHTML = getNeuroTools(s.prompt);
+    inputStack.appendChild(toolDiv);
+
+    // 3. Handle Interaction
     if (typingPreference === 'text') {
-        // Generate Input Boxes
-        // In Quick Mode, we might only give 1 box even if the count is 5, 
-        // but let's stick to the selected mode's count for consistency.
-        const boxCount = s.count;
-        
-        for (let i = 0; i < boxCount; i++) {
+        for (let i = 0; i < s.count; i++) {
             const input = document.createElement('input');
             input.className = "grounding-field";
             input.placeholder = `Item ${i+1}...`;
             inputStack.appendChild(input);
         }
     } else {
-        // No Typing: Show the Scaffold Hint Box
         const scaffold = document.createElement('div');
         scaffold.className = "grounding-scaffold-box";
         scaffold.innerHTML = getScaffoldHint(s.prompt);
@@ -61,15 +59,81 @@ function updateStep() {
 
 function getScaffoldHint(sense) {
     const hints = {
-        "see": "Look for: Something <b>round</b>, something <b>blue</b>, or something <b>shiny</b>.",
-        "touch": "Look for: Something <b>cold</b>, something <b>soft</b>, or the <b>weight</b> of your feet.",
-        "hear": "Listen for: Something <b>constant</b> (hum), something <b>distant</b>, or your <b>breath</b>.",
-        "smell": "Notice: The <b>air</b>, your <b>clothes</b>, or a <b>memory</b> of coffee.",
-        "taste": "Notice: The <b>inside</b> of your mouth or a <b>sip</b> of water."
+        "see": "Struggling to focus? Use the <b>Image Scrambler</b> or look for something square.",
+        "touch": "Tactile check: Find something <b>cold</b>, something <b>fuzzy</b>, something <b>rough</b>, and something <b>smooth</b>.",
+        "hear": "Is it too quiet? Use the <b>Ambient Toggle</b> or listen for the hum of electronics.",
+        "smell": "Memory Anchor: Imagine the smell of <b>fresh rain</b>, a <b>peeled orange</b>, or <b>clean laundry</b>.",
+        "taste": "Safe-Food Check: Take a <b>sip of water</b> or notice the lingering taste of your last meal."
     };
-    return `<p style="color: #7f8c8d; font-style: italic; background: #f9fbf9; padding: 15px; border-radius: 12px; border-left: 4px solid #9fb094; text-align: left;">${hints[sense]}</p>`;
+    return `<p class="hint-text">${hints[sense]}</p>`;
 }
 
+// Feature Logics
+// --- AUDIO SETUP ---
+// Using a direct, high-compatibility link
+let rainAudio = new Audio('https://storage.googleapis.com/codeskulptor-assets/resources/t-rex/jump.ogg'); // Testing with a short system sound first to see if it triggers
+// Once we confirm this works, you can swap it back to a long rain MP3.
+
+function toggleAmbient(btn) {
+    // 1. Force the audio to load
+    rainAudio.load(); 
+    
+    if (rainAudio.paused) {
+        // 2. Play with a catch-all for browser blocks
+        let playPromise = rainAudio.play();
+
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                btn.innerText = "🔇 Stop Sound";
+                btn.style.backgroundColor = "#9fb094"; 
+                btn.style.color = "white";
+            }).catch(error => {
+                console.error("Playback failed:", error);
+                alert("Browser blocked audio. Please click anywhere on the page first, then try the button.");
+            });
+        }
+    } else {
+        rainAudio.pause();
+        btn.innerText = "🌧️ Play Sound";
+        btn.style.backgroundColor = "#f8f9fa"; 
+        btn.style.color = "#6c7a89";
+    }
+}
+
+function getNeuroTools(sense) {
+    switch(sense) {
+        case 'see':
+            return `<button class="tool-btn" onclick="runScrambler()">🖼️ Image Scrambler</button>`;
+        case 'hear':
+            return `<button class="tool-btn" onclick="toggleAmbient(this)">🌧️ Play Soft Rain</button>`;
+        default:
+            return "";
+    }
+}
+
+function runScrambler() {
+    const existingImg = document.querySelector('.scrambler-img');
+    if (existingImg) existingImg.remove();
+
+    const images = [
+        "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=500",
+        "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=500",
+        "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=500",
+        "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=500"
+    ];
+    
+    const randomImg = images[Math.floor(Math.random() * images.length)];
+    const container = document.getElementById('inputStack');
+    
+    const imgEl = document.createElement('img');
+    imgEl.src = randomImg;
+    imgEl.className = "scrambler-img"; 
+    imgEl.style = "width:100%; max-width:400px; border-radius:15px; margin: 15px auto; display:block; box-shadow: 0 4px 15px rgba(0,0,0,0.1); animation: fadeIn 0.5s;";
+    
+    container.prepend(imgEl);
+}
+
+// THE FIX: Adding the missing advance function
 function advance() {
     if(currentStep < 4) {
         currentStep++;

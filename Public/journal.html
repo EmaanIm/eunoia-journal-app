@@ -59,10 +59,33 @@
         </aside>
     
         <main class="entry-area">
-            <div id="groundingOverlay" class="card tool-overlay" style="display:none;">
-                <h3 id="groundingStep">Grounding</h3>
-                <p id="groundingDesc">Focus on your surroundings...</p>
-                <button onclick="nextGroundingStep()">Next Step</button>
+            <div id="groundingOverlay" class="card tool-overlay" style="display:none; position: relative; z-index: 1001;">
+    
+                <div id="groundingChoiceMenu">
+                    <h3 style="color: #6c7a89; margin-bottom: 10px;">Grounding Check-in</h3>
+                    <p style="font-size: 0.95rem; color: #7f8c8d;">Choose your path to calm:</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin: 20px 0;">
+                        <button onclick="startMiniGrounding()" style="padding: 15px; border: 2px solid #a5b3a0; background: white; color: #6c7a89; border-radius: 12px; cursor: pointer; font-family: inherit;">
+                            <strong>🍃 Quick Reset</strong><br>
+                            <small>Stay here in your journal</small>
+                        </button>
+            
+                        <button onclick="window.location.href='grounding.html'" style="padding: 15px; background: #6c7a89; color: white; border: none; border-radius: 12px; cursor: pointer; font-family: inherit;">
+                            <strong>🌊 Full Experience</strong><br>
+                            <small>Open sensory-friendly page</small>
+                        </button>
+                    </div>
+                    
+                    <button onclick="toggleGrounding()" style="background: none; border: none; color: #bdc3c7; text-decoration: underline; cursor: pointer;">Cancel</button>
+                </div>
+            
+                <div id="miniGroundingSteps" style="display:none;">
+                    <h3 id="groundingStep" style="color: #6c7a89;">Step 5</h3>
+                    <p id="groundingDesc" style="margin: 15px 0; line-height: 1.5;">Focus on your surroundings...</p>
+                    <button onclick="nextGroundingStep()" style="width: 100%; padding: 12px; background: #a5b3a0; color: white; border: none; border-radius: 10px; cursor: pointer;">Next Step</button>
+                </div>
+            
             </div>
 
             <div id="bodyScanOverlay" class="card tool-overlay" style="display:none;">
