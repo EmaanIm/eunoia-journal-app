@@ -1623,3 +1623,147 @@ label {
     background-color: var(--muted-sage-light);
     color: var(--muted-sage);
 }
+/* --- Global & Nav Styles --- */
+.grounding-page-body {
+    background-color: #f1ede8;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #3d4f5f;
+}
+
+.top-bar {
+    background: transparent;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #3d4f5f;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: 0.2s;
+}
+
+.nav-item.active {
+    background: #6c7a89; /* Dusty Blue */
+    color: white;
+}
+
+.back-arrow {
+    background: #8fa0ab;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* --- Main Card Layout --- */
+.grounding-content-wrapper {
+    padding: 0 40px;
+}
+
+.grounding-main-card {
+    background: white;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 60px;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+    text-align: center;
+}
+
+/* --- Breathing & Numbers --- */
+.breathing-guide {
+    width: 160px;
+    height: 160px;
+    background: #eef1ed; /* Very light sage */
+    border: 4px solid #9fb094; /* Sage Green */
+    border-radius: 50%;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grounding-number-display {
+    font-size: 5rem;
+    font-weight: 800;
+    color: #9fb094;
+}
+
+/* --- Buttons & Inputs --- */
+.grounding-mode-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.grounding-btn-mode {
+    background: #6c7a89;
+    color: white;
+    border: none;
+    padding: 20px 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    flex: 1;
+    max-width: 350px;
+    text-align: left;
+}
+
+.grounding-btn-mode strong {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.grounding-progress-wrapper {
+    background: #f0f0f0;
+    height: 12px;
+    border-radius: 10px;
+    margin: 30px 0;
+    overflow: hidden;
+}
+
+.grounding-progress-bar {
+    background: #9fb094;
+    height: 100%;
+    width: 20%;
+    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.grounding-field {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    margin: 8px auto;
+    border: 2px solid #f1ede8;
+    border-radius: 15px;
+    display: block;
+    font-size: 1rem;
+    outline: none;
+}
+
+.btn-dusty-blue {
+    background: #6c7a89;
+    color: white;
+    border: none;
+    padding: 16px 50px;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 20px;
+}

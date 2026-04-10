@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eunoia | Grounding</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="grounding-page-body">
+
+    <div class="top-bar">
+        <div class="logo-section">
+            <h1 onclick="window.location.href='dashboard.html'" style="cursor: pointer; margin: 0; display: flex; align-items: center; gap: 10px;">
+                <span>📖</span> Eunoia
+            </h1>
+        </div>
+        
+        <div class="nav-links">
+            <div class="back-arrow" onclick="history.back()">⬅️</div>
+            <a href="journal.html" class="nav-item active">✍️ Journal</a>
+            <a href="todo.html" class="nav-item">☑️ To Do</a>
+            <a href="habits.html" class="nav-item">🎯 Habits</a>
+            <a href="mood.html" class="nav-item">😊 Mood</a>
+        </div>
+    </div>
+
+    <div class="grounding-content-wrapper">
+        <main class="grounding-main-card">
+            
+            <div id="setupArea">
+                <h2 class="grounding-title">Grounding 5-4-3-2-1</h2>
+                <p class="grounding-subtitle">Choose your pace and how you'd like to interact.</p>
+                
+                <div style="margin-bottom: 30px; display: flex; justify-content: center; gap: 20px;">
+                    <label style="cursor: pointer; font-weight: 600; color: #6c7a89;">
+                        <input type="radio" name="typingPref" value="none" checked> No Typing (Observational)
+                    </label>
+                    <label style="cursor: pointer; font-weight: 600; color: #6c7a89;">
+                        <input type="radio" name="typingPref" value="text"> Use Input Fields
+                    </label>
+                </div>
+            
+                <div class="grounding-mode-container">
+                    <button class="grounding-btn-mode" onclick="startExercise('quick')">
+                        <strong>Quick Mode</strong>
+                        <span>Brief prompts for public spaces.</span>
+                    </button>
+                    <button class="grounding-btn-mode" onclick="startExercise('deep')">
+                        <strong>Deep Mode</strong>
+                        <span>Detailed sensory exploration.</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="exerciseArea" style="display:none;">
+                <div class="breathing-guide">
+                    <div id="stepNum" class="grounding-number-display">5</div>
+                </div>
+                
+                <div class="grounding-progress-wrapper">
+                    <div id="pBar" class="grounding-progress-bar"></div>
+                </div>
+
+                <h3 id="instruction" class="grounding-instruction">Things you can see</h3>
+
+                <div id="inputStack" class="grounding-input-stack">
+                    </div>
+
+                <div class="grounding-nav-btns">
+                    <button class="btn-dusty-blue" onclick="advance()">Next Step</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="grounding.js"></script>
+</body>
+</html>
