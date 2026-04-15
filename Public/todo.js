@@ -89,20 +89,42 @@ window.filterTasks = function(priority) {
     renderTasks();
 };
 
-// --- RENDERING ---
+// --- RENDERING (REPAIRED VERSION) ---
 function renderTasks() {
     const list = document.getElementById("taskList");
     if (!list) return;
     list.innerHTML = "";
 
-    const filtered = tasks.filter(t => currentFilter === "all" || t.priority === currentFilter);
+    // 1. Get current energy from Dashboard (Default to high if empty)
+    const userEnergy = localStorage.getItem("userEnergy") || "high";
 
+    // 2. Filter the tasks
+    const filtered = tasks.filter(t => {
+        // Match the buttons (All, !, !!, !!!)
+        const matchesManualFilter = (currentFilter === "all" || t.priority === currentFilter);
+
+        // Match the Energy Level
+        let matchesEnergy = true;
+        if (userEnergy === 'low') {
+            matchesEnergy = (t.priority === "!"); // Only show 1-bar tasks
+        } else if (userEnergy === 'med') {
+            matchesEnergy = (t.priority === "!" || t.priority === "!!"); // Show 1 and 2-bar
+        }
+        // If high, matchesEnergy stays true (shows everything)
+
+        return matchesManualFilter && matchesEnergy;
+    });
+
+    // 3. Create the HTML for each task
     filtered.forEach(task => {
         const div = document.createElement("div");
         div.className = `item ${task.completed ? 'completed' : ''}`;
+        
+        // Define colors based on priority
         const accent = task.priority === '!!!' ? '#c97b7b' : (task.priority === '!!' ? 'var(--accent-blue)' : '#d1d9e0');
         div.style.borderLeft = `5px solid ${accent}`;
         
+        // Build Sub-task HTML
         let subHtml = "";
         if (task.subTasks && task.subTasks.length > 0) {
             subHtml = `<div class="sub-task-list" style="margin-top: 10px; padding-left: 35px; border-top: 1px solid #f0f0f0; padding-top: 10px;">`;
@@ -116,6 +138,7 @@ function renderTasks() {
             subHtml += `</div>`;
         }
 
+        // Main Task HTML
         div.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div style="display: flex; align-items: center; gap: 15px;">
@@ -139,6 +162,7 @@ function renderTasks() {
         list.appendChild(div);
     });
     
+    // Update the footer count
     const pendingCount = document.getElementById("pendingCount");
     if (pendingCount) pendingCount.innerText = tasks.filter(t => !t.completed).length;
 }
