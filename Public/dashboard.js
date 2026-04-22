@@ -1,9 +1,9 @@
-// 1. Navigation Logic
+// Navigation Logic
 function goTo(page) {
     window.location.href = page;
 }
 
-// 2. Orientation Logic (Clock & Dynamic Greeting)
+// Orientation Logic (Clock & Greeting)
 function updateOrientation() {
     const now = new Date();
     const hour = now.getHours();
@@ -28,19 +28,19 @@ function updateOrientation() {
     }
 }
 
-// 3. Capacity Logic (Energy Levels) - THE EDITED TOGGLE FUNCTION
+// Energy Levels 
 function setEnergy(level, btn) {
     if (!btn) return;
 
-    // A. Store the state BEFORE resetting
+    // Store the state BEFORE resetting
     const wasAlreadyActive = btn.classList.contains('active');
 
-    // B. Clear 'active' class from ALL buttons
+    // Clear 'active' class from ALL buttons
     document.querySelectorAll('.energy-btn').forEach(b => {
         b.classList.remove('active');
     });
 
-    // C. Toggle Logic
+    // Toggle Logic
     if (wasAlreadyActive) {
         // Deselect
         localStorage.removeItem("userEnergy");
@@ -55,7 +55,7 @@ function setEnergy(level, btn) {
     }
 }
 
-// 4. Function to update the To-Do card UI based on Energy
+// Function to update the To-Do card UI based on Energy
 function updateTaskCountByEnergy(level) {
     const tasks = JSON.parse(localStorage.getItem("eunoiaTasks")) || [];
     const countEl = document.getElementById("energyTaskCount");
@@ -91,7 +91,7 @@ function updateTaskCountByEnergy(level) {
     }
 }
 
-// --- INITIALIZATION ---
+// INITIALIZATION 
 
 updateOrientation();
 setInterval(updateOrientation, 1000);
@@ -99,7 +99,7 @@ setInterval(updateOrientation, 1000);
 window.addEventListener('DOMContentLoaded', () => {
     const savedEnergy = localStorage.getItem("userEnergy");
     
-    // Ensure UI matches the saved state on refresh
+    // make sure UI matches the saved state on refresh
     if (savedEnergy) {
         const buttons = document.querySelectorAll('.energy-btn');
         if (savedEnergy === 'low' && buttons[0]) buttons[0].classList.add('active');
@@ -108,7 +108,7 @@ window.addEventListener('DOMContentLoaded', () => {
         
         updateTaskCountByEnergy(savedEnergy);
     } else {
-        // Explicitly reset if nothing is saved
+        // reset if nothing is saved
         updateTaskCountByEnergy(null);
     }
 });
