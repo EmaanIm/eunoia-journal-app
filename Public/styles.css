@@ -1,6 +1,4 @@
-/* =====================================================
-   BASE & THEME VARIABLES
-   ===================================================== */
+/* base themes & variables */
    :root {
     --bg-color: #f4efe9;
     --card-bg: #ffffff;
@@ -25,7 +23,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* TOP BAR & NAVIGATION */
+/* top bar and nav */
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -56,12 +54,8 @@ body {
     color: white;
 }
 
-
-
-
-/*JOURNAL PAGE  */
+/* journal page */
    
-
 /* Container Layout */
 .journal-container {
     display: flex;
@@ -74,7 +68,7 @@ body {
 
 /* Sidebar Styling */
 .sidebar-cards {
-    flex: 0 0 300px; /* Fixed width for consistency */
+    flex: 0 0 300px; 
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -87,12 +81,12 @@ body {
     border-bottom: 2px solid #f2f2f2;
     padding-bottom: 8px;
 }
-/* JOURNAL PAGE DELETE BUTTON */
+/* delete button */
 .entry-card .del-btn {
     background: none !important;
     border: none !important;
     padding: 8px !important;
-    color: #bcc6cc !important; /* Muted grey default */
+    color: #bcc6cc !important; 
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -104,8 +98,8 @@ body {
 
 /* Red Hover Effect */
 .entry-card .del-btn:hover {
-    color: #e57373 !important; /* Professional Muted Red */
-    background-color: #fff5f5 !important; /* Very light blush background */
+    color: #e57373 !important; 
+    background-color: #fff5f5 !important; 
     transform: scale(1.1);
 }
 
@@ -133,9 +127,7 @@ body {
     transform: scale(1.1);
 }
 
-/* =====================================================
-   FIXED PROMPTS & SIDEBAR
-   ===================================================== */
+/* prompts and side bar */
 
    .prompts-card {
     padding: 25px !important;
@@ -151,8 +143,8 @@ body {
 
 .prompt {
     display: flex;
-    align-items: center; /* Centers emoji and text vertically */
-    gap: 15px; /* Creates a clean space between icon and text */
+    align-items: center; 
+    gap: 15px; 
     background: #f8f9fa;
     padding: 14px 18px;
     margin-bottom: 12px;
@@ -193,7 +185,7 @@ body {
     transform: translateX(2px);
 }
 
-/* Regulation Tools Button Polish */
+/* Regulation Tools Button */
 .tool-btn {
     width: 100%;
     background-color: var(--accent-green); /* #9cad97 */
@@ -211,9 +203,7 @@ body {
     filter: brightness(0.95);
     transform: translateY(-2px);
 }
-/* =====================================================
-   FIXED SCROLLABLE PROMPTS CARD
-   ===================================================== */
+/* prompt cards */
 
    .prompts {
     background-color: var(--card-bg); /* Restores white background */
@@ -237,7 +227,7 @@ body {
 
 /* Internal scrollable wrapper */
 .prompts-container {
-    overflow-y: auto; 
+    overflow-y: auto; scrollable 
     flex-grow: 1;
     padding-right: 5px;
     display: flex;
@@ -282,7 +272,7 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 20px;
     height: 20px;
-    background: #f6d6dc; /* Blush Pink */
+    background: #f6d6dc; 
     border: 2px solid #eec1c9;
     border-radius: 50%;
     cursor: pointer;
@@ -291,13 +281,13 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background: #f6d6dc; /* Blush Pink */
+    background: #f6d6dc; 
     border: 2px solid #eec1c9;
     border-radius: 50%;
     cursor: pointer;
 }
 
-/* SIDEBAR TOOLKIT BUTTONS */
+/* side bar toolkit buttons */
 .tool-btn {
     width: 100%;
     padding: 12px;
@@ -307,7 +297,7 @@ input[type="range"]::-moz-range-thumb {
     color: white;
     font-weight: 600;
     cursor: pointer;
-    background-color: #8ea0ad; /* Dusty Blue */
+    background-color: #8ea0ad; 
 }
 
 
@@ -316,13 +306,11 @@ input[type="range"]::-moz-range-thumb {
     transform: translateY(-2px);
 }
 
-/* =====================================================
-   MUTED SAGE GREEN ENERGY METER
-   ===================================================== */
+/* muted sage green energy meter */
 
    :root {
     --muted-sage: #a5b3a0;
-    --muted-sage-dark: #8e9c89; /* For borders and hover states */
+    --muted-sage-dark: #8e9c89; 
 }
 
 input[type="range"] {
@@ -332,7 +320,7 @@ input[type="range"] {
     border-radius: 5px;
     outline: none;
     cursor: pointer;
-    /* Background is handled dynamically by journal.js */
+    
 }
 
 /* Thumb - Chrome, Safari, Edge */
@@ -376,7 +364,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 
 #energyValue {
     font-weight: 600;
-    color: #7b8c97; /* Muted slate for the text label */
+    color: #7b8c97; 
     margin-left: 10px;
 }
 
@@ -492,7 +480,7 @@ textarea:focus {
     color: #5d7382;
 }
 
-/* Slider Customization */
+/* Slider Customisation */
 input[type="range"] {
     width: 100%;
     accent-color: var(--accent-blue);
@@ -567,9 +555,7 @@ input[type="range"] {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-/* =====================================================
-   TO DO PAGE ENHANCEMENTS
-   ===================================================== */
+/*  To Do Page  */
 
    .filter-btn {
     background: #eee;
@@ -591,7 +577,7 @@ input[type="range"] {
     background: #e2e8f0;
 }
 
-/* Fix for the Date input consistency */
+/* Date input consistency */
 input[type="date"] {
     font-family: inherit;
     color: var(--text-main);
@@ -602,9 +588,7 @@ input[type="date"] {
     transition: all 0.3s ease;
 }
 
-/* =====================================================
-   5. GENERAL COMPONENTS (CARDS, BUTTONS, INPUTS)
-   ===================================================== */
+/* general */
 .card {
     background-color: var(--card-bg);
     padding: 2rem;
@@ -641,35 +625,33 @@ button:hover {
     text-align: center;
     cursor: pointer;
 }
-/* =====================================================
-   SCROLLABLE PROMPTS SECTION
-   ===================================================== */
+/* scrollable prompts */
 
-/* 1. Set a max height on the card so it doesn't grow forever */
+/* Set a max height on the card */
 .prompts {
     max-height: 500px; 
     display: flex;
     flex-direction: column;
 }
 
-/* 2. Style the new container to allow scrolling */
+/* Style the new container to allow scrolling */
 .prompts-container {
     overflow-y: auto; /* Enable vertical scroll */
     flex-grow: 1;
     padding-right: 5px;
 }
 
-/* 3. Hide the scrollbar for a cleaner look (Chrome/Safari) */
+/* Hide the scrollbar (Chrome/Safari) */
 .prompts-container::-webkit-scrollbar {
     display: none;
 }
 
-/* 4. Hide scrollbar for Firefox */
+/* Hide scrollbar for Firefox */
 .prompts-container {
     scrollbar-width: none;
 }
 
-/* 5. Ensure prompt items use flex for icon alignment */
+/* Ensure prompt items use flex for icon alignment */
 .prompt {
     display: flex;
     align-items: center;
@@ -687,16 +669,14 @@ button:hover {
     transform: translateX(5px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-/* =====================================================
-   FIXED SCROLLABLE PROMPTS CARD
-   ===================================================== */
+/* scrollale prompts*/
 
    .prompts {
-    background-color: var(--card-bg); /* Restores white background */
-    padding: 25px; /* Restores internal padding */
-    border-radius: var(--radius-lg); /* Restores rounded corners */
-    box-shadow: var(--shadow); /* Restores the soft shadow */
-    max-height: 550px; /* Limits card height */
+    background-color: var(--card-bg); 
+    padding: 25px; 
+    border-radius: var(--radius-lg); 
+    box-shadow: var(--shadow); 
+    max-height: 550px; 
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -743,7 +723,7 @@ button:hover {
     border: 1px solid transparent;
     width: 100%;
     box-sizing: border-box;
-    flex-shrink: 0; /* Prevents items from squishing */
+    flex-shrink: 0; 
 }
 
 .prompt:hover {
@@ -753,17 +733,14 @@ button:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* ... existing code ... */
-
-/* --- NEW ALIGNMENT FIXES --- */
-/* Update your existing tool-btn style to ensure icons align */
+/* Update  existing tool-btn style to ensure icons align */
 .tool-btn {
     display: flex;
     align-items: center;
     gap: 12px;
     background-color: var(--accent-blue);
     text-align: left;
-    width: 100%; /* Ensures it fills the sidebar width */
+    width: 100%; 
     padding: 12px;
     margin-bottom: 8px;
     border-radius: 12px;
@@ -776,7 +753,7 @@ button:hover {
 /* Ensure the range slider looks correct with the JS fill */
 input[type="range"] {
     -webkit-appearance: none;
-    background: #f2f2f2; /* Default background, JS will override with green */
+    background: #f2f2f2;
     height: 10px;
     border-radius: 5px;
     width: 100%;
@@ -788,11 +765,9 @@ input[type="range"] {
     text-align: center;
     display: inline-block;
 }
-/* =====================================================
-   TO DO PAGE - COMPONENT STYLES
-   ===================================================== */
+/* to do page  */
 
-/* 1. Main Layout Force-Fix */
+/* Main Layout Force-Fix */
 .todo-page .journal-container {
     display: flex !important;
     flex-direction: row !important;
@@ -803,7 +778,7 @@ input[type="range"] {
     align-items: flex-start;
 }
 
-/* 2. Sidebar Alignment (Right Side) */
+/* Sidebar Alignment (Right Side) */
 .todo-page .sidebar-cards {
     flex: 0 0 320px !important; /* Fixed width for consistency */
     display: flex;
@@ -811,7 +786,7 @@ input[type="range"] {
     gap: 20px;
 }
 
-/* 3. Main Task Area (Left Side) */
+/* Main Task Area (Left Side) */
 .todo-page .entry-area {
     flex: 1 !important;
     display: flex;
@@ -819,7 +794,7 @@ input[type="range"] {
     gap: 25px;
 }
 
-/* 4. Input Row & Sub-tasks */
+/* Input Row & Sub-tasks */
 .todo-page .input-row {
     background: #fdfbf9;
     padding: 20px;
@@ -843,7 +818,7 @@ input[type="range"] {
     box-shadow: 0 0 0 3px rgba(142, 160, 173, 0.1);
 }
 
-/* 5. Task Items (The List) */
+/* Task Items (The List) */
 .item {
     background: white;
     padding: 18px;
@@ -872,7 +847,7 @@ input[type="range"] {
     padding-top: 10px;
 }
 
-/* 6. Timer Styling */
+/* Timer Styling */
 .timer-card {
     text-align: center;
     border: 2px solid #f0f4f8;
@@ -888,7 +863,7 @@ input[type="range"] {
     padding: 10px;
 }
 
-/* 7. General Button Consistency */
+/* General Button Consistency */
 .todo-page button {
     padding: 10px 20px;
     font-weight: 600;
@@ -933,15 +908,14 @@ input[type="range"] {
 .sub-task-list {
     animation: fadeIn 0.3s ease;
 }
-/* =====================================================
-   UPCOMING DEADLINES & TASK LIST REFINEMENTS
-   ===================================================== */
+
+/* upcoming deadlines and priority */
 
 /* Container for the horizontal scrolling pills */
 #deadlineList {
     display: flex;
     gap: 12px;
-    overflow-x: auto; /* Allows side-swiping if many deadlines exist */
+    overflow-x: auto; 
     padding: 10px 5px 20px 5px;
     margin-bottom: 20px;
     border-bottom: 1px solid #f8f9fa;
@@ -986,12 +960,12 @@ input[type="range"] {
     gap: 12px;
 }
 
-/* --- FORCE RED HOVER ON TO-DO PAGE --- */
+/* red hover on to do page*/
 .item .delete-btn {
     background: none;
     border: none;
     padding: 6px;
-    color: #bcc6cc !important; /* Muted grey */
+    color: #bcc6cc !important; 
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1003,7 +977,7 @@ input[type="range"] {
 
 /* The hover state */
 .item .delete-btn:hover {
-    color: #e57373 !important; /* The Eunoia Red/Blush */
+    color: #e57373 !important; 
     background-color: #fff5f5 !important; 
     transform: scale(1.1);
 }
@@ -1019,11 +993,9 @@ input[type="range"] {
     transition: background 0.2s;
 }
 
-/* =====================================================
-   DASHBOARD 2x2 GRID FIX
-   ===================================================== */
+/* dashboard 2x2 grid  */
 
-/* 1. Force the container to allow the grid to breathe */
+/* Force the container to allow the grid to breathe */
 .dashboard-page .journal-container {
     display: flex !important;
     justify-content: center !important;
@@ -1033,7 +1005,7 @@ input[type="range"] {
     margin: 0 auto !important;
 }
 
-/* 2. Force the 2x2 Layout */
+/* Force the 2x2 Layout */
 .dashboard-page .dashboard-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important; /* This creates the 2 columns */
@@ -1042,9 +1014,7 @@ input[type="range"] {
     max-width: 900px !important;
 }
 
-/* =====================================================
-   DASHBOARD CARD ALIGNMENT FIX (COMPLETE)
-   ===================================================== */
+/* dashboard card alignement */
 
    .dashboard-page .main-nav-card {
     display: flex !important;
@@ -1064,7 +1034,7 @@ input[type="range"] {
     border: 1px solid var(--accent-blue) !important;
 }
 
-/* 1. This makes the Emojis large and centers them */
+/* This makes the Emojis large and centers them */
 .dashboard-page .main-nav-card .card-icon {
     font-size: 2.8rem !important; 
     display: flex !important;
@@ -1074,7 +1044,7 @@ input[type="range"] {
     line-height: 1 !important;
 }
 
-/* 2. This ensures the Title and Subtitle stay stacked and centered */
+/* ensures the Title and Subtitle stay stacked and centered */
 .dashboard-page .main-nav-card .card-content {
     display: flex !important;
     flex-direction: column !important;
@@ -1085,7 +1055,7 @@ input[type="range"] {
     margin: 0 !important; 
     font-size: 1.6rem !important; 
     color: var(--text-main);
-    border: none !important; /* Removes any sidebar heading lines */
+    border: none !important; 
 }
 
 .dashboard-page .main-nav-card p {
@@ -1094,15 +1064,13 @@ input[type="range"] {
     color: var(--text-muted);
 }
 
-/* 4. Responsive: Drop to 1 column ONLY on mobile phones */
+/* Responsive: Drop to 1 column ONLY on mobile phones */
 @media (max-width: 600px) {
     .dashboard-page .dashboard-grid {
         grid-template-columns: 1fr !important;
     }
 }
-/* =====================================================
-   DASHBOARD MINI-CARDS & TOOLS
-   ===================================================== */
+/* dashboard mini cards and tools */
 
    .mini-card {
     padding: 15px 20px !important;
@@ -1164,9 +1132,7 @@ input[type="range"] {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
-/* =====================================================
-   LOGIN & SIGNUP PAGE STYLING
-   ===================================================== */
+/* login and signup page */
 
 /* Centers the entire content on the screen */
 body:has(.login-page) {
@@ -1291,9 +1257,7 @@ label {
     margin-left: 10px;
     margin-right: 0;
 }
-/* =====================================================
-   MOOD PAGE SPECIFIC STYLES (MATCHING SCREENSHOT)
-   ===================================================== */
+/* mood page*/
 
    .mood-wrapper {
     max-width: 800px;
@@ -1326,7 +1290,7 @@ label {
 }
 
 .mood-option {
-    background: #f8f9fa; /* Light gray background like pic */
+    background: #f8f9fa; 
     padding: 20px 10px;
     border-radius: 15px;
     display: flex;
@@ -1400,9 +1364,7 @@ label {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-/* =====================================================
-   HABITS PAGE - REFINED COLOR PALETTE
-   ===================================================== */
+/* habits page */
    :root {
     --muted-blush: #eec1c9;
     --muted-sage: #9cad97;
@@ -1418,12 +1380,12 @@ label {
     padding: 0 40px;
 }
 
-/* 1. Add Habit Input Section */
+/* Add Habit Input Section */
 .habit-input-container {
     display: flex;
     gap: 12px;
     margin-bottom: 30px;
-    background: #fdfbf9; /* Slight off-white contrast */
+    background: #fdfbf9; 
     padding: 10px;
     border-radius: 12px;
 }
@@ -1453,7 +1415,7 @@ label {
     transform: translateY(-1px);
 }
 
-/* 2. Habit Tracker List (Pills) */
+/* Habit Tracker List */
 .habit-item {
     background: #f8f9fa;
     margin-bottom: 12px;
@@ -1462,7 +1424,7 @@ label {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-left: 4px solid var(--muted-blush); /* Subtle blush accent */
+    border-left: 4px solid var(--muted-blush); 
     transition: transform 0.2s ease;
 }
 
@@ -1493,7 +1455,7 @@ label {
     font-size: 12px;
 }
 
-/* 3. History Table Section */
+/* History Table Section */
 .history-section {
     margin-top: 40px;
 }
@@ -1505,7 +1467,7 @@ label {
 }
 
 .habit-table th {
-    color: var(--dusty-blue); /* Professional blue headers */
+    color: var(--dusty-blue); 
     font-weight: 600;
     font-size: 0.8rem;
     padding: 10px;
@@ -1544,12 +1506,12 @@ label {
     font-size: 0.85rem;
     display: inline-block;
 }
-/* Professional Delete Button */
+/*  Delete Button */
 .delete-btn {
     background: none;
     border: none;
     padding: 5px;
-    color: #bcc6cc; /* Subtle grey by default */
+    color: #bcc6cc; 
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1559,11 +1521,11 @@ label {
 }
 
 .delete-btn:hover {
-    color: #e57373; /* Muted red-pink on hover */
-    background-color: #fff5f5; /* Very light blush background on hover */
+    color: #e57373; 
+    background-color: #fff5f5; 
 }
 
-/* Ensure the trash icon doesn't look cluttered in the table if you use it there too */
+/* Ensure the bin icon doesn't look cluttered in the table if you use it there too */
 .habit-table .delete-btn {
     opacity: 0; /* Hide in table until row is hovered */
 }
@@ -1578,7 +1540,7 @@ label {
     padding: 20px;
     border-radius: 15px;
     margin-top: 20px;
-    animation: pulse 2s infinite; /* A slow, calming pulse */
+    animation: pulse 2s infinite; 
 }
 
 @keyframes pulse {
@@ -1622,7 +1584,7 @@ label {
     background-color: var(--muted-sage-light);
     color: var(--muted-sage);
 }
-/* --- Global & Nav Styles --- */
+/*Global & Nav Styles*/
 .grounding-page-body {
     background-color: #f1ede8;
     margin: 0;
@@ -1656,7 +1618,7 @@ label {
 }
 
 .nav-item.active {
-    background: #6c7a89; /* Dusty Blue */
+    background: #6c7a89;
     color: white;
 }
 
@@ -1668,7 +1630,7 @@ label {
     cursor: pointer;
 }
 
-/* --- Main Card Layout --- */
+/* Main Card Layout */
 .grounding-content-wrapper {
     padding: 0 40px;
 }
@@ -1683,12 +1645,12 @@ label {
     text-align: center;
 }
 
-/* --- Breathing & Numbers --- */
+/* Breathing & Numbers */
 .breathing-guide {
     width: 160px;
     height: 160px;
-    background: #eef1ed; /* Very light sage */
-    border: 4px solid #9fb094; /* Sage Green */
+    background: #eef1ed; 
+    border: 4px solid #9fb094;
     border-radius: 50%;
     margin: 0 auto 30px;
     display: flex;
@@ -1702,7 +1664,7 @@ label {
     color: #9fb094;
 }
 
-/* --- Buttons & Inputs --- */
+/* Buttons & Inputs */
 .grounding-mode-container {
     display: flex;
     gap: 20px;
@@ -1791,7 +1753,7 @@ label {
     background: #f9fbf9;
     padding: 15px;
     border-radius: 12px;
-    border-left: 4px solid #9fb094; /* Sage Green */
+    border-left: 4px solid #9fb094; 
     text-align: left;
     margin-bottom: 15px;
 }
@@ -1801,17 +1763,17 @@ label {
     justify-content: center;
     gap: 10px;
 }
-/* Add these to your styles.css */
+
 .title-fact { color: #6c7a89 !important; font-weight: bold; }
 .title-feeling { color: #d9a29c !important; font-weight: bold; }
 .title-body { color: #a5b3a0 !important; font-weight: bold; }
-/* This makes the suggested prompt text look distinct */
+/*  makes the suggested prompt text look distinct */
 .is-prompt {
     color: #5b5656 !important; /* Sage green */
     font-style: italic;
 }
 
-/* This is the normal color for when the user is typing */
+/* This is the normal colour for when the user is typing */
 .is-typing {
     color: #1e2429 !important;
     font-style: normal;

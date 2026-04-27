@@ -1,10 +1,10 @@
-// --- INITIAL STATE ---
+// initial state 
 let tasks = JSON.parse(localStorage.getItem("eunoiaTasks")) || [];
 let currentFilter = "all";
 let timerInterval = null;
 let timeLeft = 25 * 60; // 25 minutes in seconds
 
-// --- CORE UTILITIES ---
+// core utilities 
 function saveAndRender() {
     localStorage.setItem("eunoiaTasks", JSON.stringify(tasks));
     renderTasks();
@@ -20,7 +20,7 @@ function calculatePriority(deadline) {
     return "!";
 }
 
-// --- TASK ACTIONS ---
+// take actions 
 function addTask() {
     const taskInput = document.getElementById("taskInput");
     const deadlineInput = document.getElementById("deadlineInput");
@@ -78,7 +78,7 @@ window.toggleSubTask = function(taskId, subIdx) {
     }
 };
 
-// --- FILTER LOGIC ---
+// filter logic 
 window.filterTasks = function(priority) {
     currentFilter = priority;
     document.querySelectorAll(".filter-btn").forEach(btn => {
@@ -89,18 +89,18 @@ window.filterTasks = function(priority) {
     renderTasks();
 };
 
-// --- RENDERING (REPAIRED VERSION) ---
+// rendering
 function renderTasks() {
     const list = document.getElementById("taskList");
     if (!list) return;
     list.innerHTML = "";
 
-    // 1. Get current energy from Dashboard (Default to high if empty)
+    // Get current energy from Dashboard (Default to high if empty)
     const userEnergy = localStorage.getItem("userEnergy") || "high";
 
-    // 2. Filter the tasks
+    // Filter the tasks
     const filtered = tasks.filter(t => {
-        // Match the buttons (All, !, !!, !!!)
+        // Match the buttons 
         const matchesManualFilter = (currentFilter === "all" || t.priority === currentFilter);
 
         // Match the Energy Level
@@ -110,17 +110,17 @@ function renderTasks() {
         } else if (userEnergy === 'med') {
             matchesEnergy = (t.priority === "!" || t.priority === "!!"); // Show 1 and 2-bar
         }
-        // If high, matchesEnergy stays true (shows everything)
+        // If high, matchesEnergy stays true, shows everything
 
         return matchesManualFilter && matchesEnergy;
     });
 
-    // 3. Create the HTML for each task
+    // Create the HTML for each task
     filtered.forEach(task => {
         const div = document.createElement("div");
         div.className = `item ${task.completed ? 'completed' : ''}`;
         
-        // Define colors based on priority
+        // Define colours based on priority
         const accent = task.priority === '!!!' ? '#c97b7b' : (task.priority === '!!' ? 'var(--accent-blue)' : '#d1d9e0');
         div.style.borderLeft = `5px solid ${accent}`;
         
@@ -191,7 +191,7 @@ function updateDeadlines() {
     });
 }
 
-// --- FOCUS TIMER LOGIC ---
+// focus timer logic
 window.toggleTimer = function() {
     const btn = document.getElementById("timerBtn");
     if (timerInterval) {
@@ -230,16 +230,16 @@ function updateTimerDisplay() {
     display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
-// --- INITIALIZATION ---
+// initialisation
 document.addEventListener("DOMContentLoaded", () => {
     const addBtn = document.querySelector(".add-task-btn");
     if(addBtn) addBtn.addEventListener("click", addTask);
 
-    // 1. LOAD DRAFT
+    // load draft
     const savedTask = localStorage.getItem("todoTaskDraft");
     if (savedTask) document.getElementById("taskInput").value = savedTask;
 
-    // 2. ATTACH DRAFT LISTENER
+    // attach draft listener 
     document.getElementById("taskInput").addEventListener("input", (e) => {
         localStorage.setItem("todoTaskDraft", e.target.value);
     });

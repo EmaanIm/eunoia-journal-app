@@ -3,7 +3,7 @@ function goTo(page) {
     window.location.href = page;
 }
 
-// Clock & Greeting
+// digital clock
 function updateOrientation() {
     const now = new Date();
     const hour = now.getHours();

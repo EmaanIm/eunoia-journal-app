@@ -20,7 +20,7 @@ window.onload = () => {
         updateSliderFill(); 
     }
 
-    // COLOR SWITCHER
+    // colour switch
     if (textArea) {
         textArea.addEventListener('input', () => {
             textArea.classList.remove('is-prompt');
@@ -28,7 +28,7 @@ window.onload = () => {
         });
     }
 };
-// CORE JOURNAL FUNCTIONS 
+// core journal functions
 function startEntry(promptText) {
     currentPrompt = promptText;
     editingId = null;
@@ -137,7 +137,7 @@ function updateSliderFill() {
     energyValue.innerText = `${val}/10`;
 }
 
-// TOOLKIT 
+// toolkit 
 function closeAllOverlays() {
     const overlays = ['groundingOverlay', 'bodyScanOverlay', 'reframerOverlay', 'sensoryOverlay'];
     overlays.forEach(id => {
@@ -152,7 +152,7 @@ function closeAllOverlays() {
     if (titleEl) titleEl.classList.remove('title-fact', 'title-feeling', 'title-body');
 }
 
-// GROUNDING
+// grounding
 let miniStep = 0;
 const groundingData = [
     { step: "5 - See", desc: "Look around. Name 5 things you can see." },
@@ -203,7 +203,7 @@ function nextGroundingStep() {
     }
 }
 
-// BODY SCAN 
+// body scan 
 function toggleBodyScan() {
     const el = document.getElementById("bodyScanOverlay");
     if (el.style.display === "none") {
@@ -240,7 +240,7 @@ function logBodyPart(part) {
     textArea.focus();
 }
 
-// THOUGHT REFRAMER 
+// Thought reframer
 function toggleReframer() {
     const el = document.getElementById("reframerOverlay");
     if (el.style.display === "none") {
@@ -257,7 +257,7 @@ function reframe(type) {
     const textArea = document.getElementById("journalText");
     const titleEl = document.getElementById("entryTitle");
 
-    // Set color to prompt mode
+    // Set colour to prompt mode
     textArea.classList.remove('is-typing');
     textArea.classList.add('is-prompt'); 
 
@@ -273,7 +273,7 @@ function reframe(type) {
     textArea.focus();
 }
 
-// SENSORY RESET
+// sensory reset
 function toggleSensory() {
     const el = document.getElementById("sensoryOverlay");
     if (el.style.display === "none") {
@@ -291,7 +291,7 @@ function nextSensory() {
     document.getElementById("sensoryTask").innerText = tasks[Math.floor(Math.random() * tasks.length)];
 }
 
-// VOICE TO TEXT
+// voice to text
 function startVoiceEntry() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return alert("Voice recognition not supported.");

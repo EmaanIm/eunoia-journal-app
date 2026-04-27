@@ -71,11 +71,11 @@ function getScaffoldHint(sense) {
 
 
 function toggleAmbient(btn) {
-    // 1. Force the audio to load
+    // Force the audio to load
     rainAudio.load(); 
     
     if (rainAudio.paused) {
-        // 2. Play with a catch-all for browser blocks
+        // Play with a catch-all for browser blocks
         let playPromise = rainAudio.play();
 
         if (playPromise !== undefined) {
@@ -129,7 +129,7 @@ function runScrambler() {
     container.prepend(imgEl);
 }
 
-// THE FIX: Adding the missing advance function
+// advance function
 function advance() {
     if(currentStep < 4) {
         currentStep++;
