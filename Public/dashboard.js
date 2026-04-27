@@ -1,9 +1,9 @@
-// Navigation Logic
+// Navigation 
 function goTo(page) {
     window.location.href = page;
 }
 
-// Orientation Logic (Clock & Greeting)
+// Clock & Greeting
 function updateOrientation() {
     const now = new Date();
     const hour = now.getHours();
@@ -32,7 +32,7 @@ function updateOrientation() {
 function setEnergy(level, btn) {
     if (!btn) return;
 
-    // Store the state BEFORE resetting
+    // Store state BEFORE resetting
     const wasAlreadyActive = btn.classList.contains('active');
 
     // Clear 'active' class from ALL buttons
@@ -91,7 +91,7 @@ function updateTaskCountByEnergy(level) {
     }
 }
 
-// INITIALIZATION 
+// initialisation
 
 updateOrientation();
 setInterval(updateOrientation, 1000);

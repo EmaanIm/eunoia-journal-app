@@ -8,7 +8,7 @@ const moodNote = document.getElementById("moodNote");
 const historyContainer = document.getElementById("moodHistory");
 const groundingOverlay = document.getElementById("groundingOverlay");
 
-// 1. Select Mood
+// Select Mood
 options.forEach(option => {
     option.addEventListener("click", () => {
         const name = option.querySelector(".label").innerText;
@@ -21,7 +21,7 @@ options.forEach(option => {
     });
 });
 
-// 2. Toggle Tag Function
+// Toggle Tag Function
 window.toggleTag = function(element) {
     element.classList.toggle("selected");
     
@@ -39,7 +39,7 @@ window.toggleTag = function(element) {
     localStorage.setItem("moodNoteDraft", moodNote.value);
 }
 
-// 3. Save Mood
+// Save Mood
 const saveBtn = document.querySelector(".save-mood-btn");
 if (saveBtn) {
     saveBtn.addEventListener("click", () => {
@@ -76,7 +76,7 @@ if (saveBtn) {
     });
 }
 
-// 4. Delete Entry
+// Delete Entry
 window.deleteEntry = function(id) {
     if(confirm("Delete this mood log?")) {
         moods = moods.filter(m => m.id !== id);
@@ -85,7 +85,7 @@ window.deleteEntry = function(id) {
     }
 }
 
-// 5. Render History
+// Render History
 function renderHistory() {
     if (!historyContainer) return;
     historyContainer.innerHTML = "";
@@ -120,14 +120,14 @@ function renderHistory() {
     });
 }
 
-// --- INITIALIZATION ---
+// initialisation
 renderHistory();
 
 // Handle Drafts
 const savedMoodNote = localStorage.getItem("moodNoteDraft");
 if (savedMoodNote && savedMoodNote.trim() !== "") {
     moodNote.value = savedMoodNote;
-    // We show the box so they know a draft exists
+    // show the box so they know a draft exists
     reflectionBox.style.display = "block";
     selectedMoodTitle.innerText = "Continue your draft...";
 }
@@ -136,7 +136,7 @@ moodNote.addEventListener("input", (e) => {
     localStorage.setItem("moodNoteDraft", e.target.value);
 });
 
-// 6. Close Grounding Overlay
+// Close Grounding Overlay
 window.closeGrounding = function() {
     if (groundingOverlay) {
         groundingOverlay.style.display = "none";

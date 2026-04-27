@@ -3,7 +3,7 @@ let editingId = null;
 const energyMeter = document.getElementById('energyMeter');
 const energyValue = document.getElementById('energyValue');
 
-// --- INITIALIZATION ---
+// initialisation
 window.onload = () => {
     displayEntries();
     
@@ -20,7 +20,7 @@ window.onload = () => {
         updateSliderFill(); 
     }
 
-    // COLOR SWITCHER: Changes text color from Sage to Normal when user types
+    // COLOR SWITCHER
     if (textArea) {
         textArea.addEventListener('input', () => {
             textArea.classList.remove('is-prompt');
@@ -28,7 +28,7 @@ window.onload = () => {
         });
     }
 };
-// --- CORE JOURNAL FUNCTIONS ---
+// CORE JOURNAL FUNCTIONS 
 function startEntry(promptText) {
     currentPrompt = promptText;
     editingId = null;
@@ -137,7 +137,7 @@ function updateSliderFill() {
     energyValue.innerText = `${val}/10`;
 }
 
-// --- TOOLKIT LOGIC ---
+// TOOLKIT 
 function closeAllOverlays() {
     const overlays = ['groundingOverlay', 'bodyScanOverlay', 'reframerOverlay', 'sensoryOverlay'];
     overlays.forEach(id => {
@@ -152,7 +152,7 @@ function closeAllOverlays() {
     if (titleEl) titleEl.classList.remove('title-fact', 'title-feeling', 'title-body');
 }
 
-// 1. GROUNDING
+// GROUNDING
 let miniStep = 0;
 const groundingData = [
     { step: "5 - See", desc: "Look around. Name 5 things you can see." },
@@ -203,7 +203,7 @@ function nextGroundingStep() {
     }
 }
 
-// 2. BODY SCAN (With Somatic Exercises & Color)
+// BODY SCAN 
 function toggleBodyScan() {
     const el = document.getElementById("bodyScanOverlay");
     if (el.style.display === "none") {
@@ -220,7 +220,7 @@ function logBodyPart(part) {
     const textArea = document.getElementById("journalText");
     const titleEl = document.getElementById("entryTitle");
     
-    // Set color to prompt mode
+    // Set colour to prompt mode
     textArea.classList.remove('is-typing');
     textArea.classList.add('is-prompt'); 
 
@@ -240,7 +240,7 @@ function logBodyPart(part) {
     textArea.focus();
 }
 
-// 3. THOUGHT REFRAMER (With Prompts & Color)
+// THOUGHT REFRAMER 
 function toggleReframer() {
     const el = document.getElementById("reframerOverlay");
     if (el.style.display === "none") {
@@ -273,7 +273,7 @@ function reframe(type) {
     textArea.focus();
 }
 
-// 4. SENSORY RESET
+// SENSORY RESET
 function toggleSensory() {
     const el = document.getElementById("sensoryOverlay");
     if (el.style.display === "none") {
@@ -291,7 +291,7 @@ function nextSensory() {
     document.getElementById("sensoryTask").innerText = tasks[Math.floor(Math.random() * tasks.length)];
 }
 
-// 5. VOICE TO TEXT
+// VOICE TO TEXT
 function startVoiceEntry() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return alert("Voice recognition not supported.");

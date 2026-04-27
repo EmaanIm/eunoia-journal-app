@@ -12,7 +12,7 @@ const data = [
 
 function startExercise(selectedMode) {
     mode = selectedMode;
-    // Get the value from the radio buttons
+    // Get value from radio buttons
     typingPreference = document.querySelector('input[name="typingPref"]:checked').value;
     
     document.getElementById('setupArea').style.display = 'none';
@@ -30,18 +30,18 @@ function updateStep() {
     
     inputStack.innerHTML = ""; 
 
-    // 1. Set the Instruction Text
+    // Set the Instruction Text
     instruction.innerHTML = mode === 'quick' 
         ? `Quickly spot <span style="color:#6c7a89">${s.count}</span> thing(s) you can ${s.prompt}.`
         : `Take a deep breath. Find <span style="color:#6c7a89">${s.count}</span> things to ${s.prompt}.`;
 
-    // 2. Add the Neurodivergent Tools (Scrambler, Sounds, etc.)
+    // Add the Neurodivergent Tools (Scrambler, Sounds, etc.)
     const toolDiv = document.createElement('div');
     toolDiv.className = "grounding-tool-container";
     toolDiv.innerHTML = getNeuroTools(s.prompt);
     inputStack.appendChild(toolDiv);
 
-    // 3. Handle Interaction
+    // Handle Interaction
     if (typingPreference === 'text') {
         for (let i = 0; i < s.count; i++) {
             const input = document.createElement('input');
@@ -68,11 +68,7 @@ function getScaffoldHint(sense) {
     return `<p class="hint-text">${hints[sense]}</p>`;
 }
 
-// Feature Logics
-// --- AUDIO SETUP ---
-// Using a direct, high-compatibility link
-let rainAudio = new Audio('https://storage.googleapis.com/codeskulptor-assets/resources/t-rex/jump.ogg'); // Testing with a short system sound first to see if it triggers
-// Once we confirm this works, you can swap it back to a long rain MP3.
+
 
 function toggleAmbient(btn) {
     // 1. Force the audio to load

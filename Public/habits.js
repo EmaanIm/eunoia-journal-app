@@ -68,8 +68,7 @@ function render() {
     const tableBody = document.getElementById("habitHistoryBody");
     const days = getLast7Days();
 
-    // 1. Render Upper Tracker
-    // Inside your render function, update the habitList.innerHTML mapping:
+    
 
 habitList.innerHTML = habits.map((habit, index) => `
 <div class="habit-item">
@@ -92,12 +91,12 @@ habitList.innerHTML = habits.map((habit, index) => `
 </div>
 `).join("");
 
-    // 2. Render Table Header
+    // Render Table Header
     tableHeader.innerHTML = `<th>Habit</th>` + 
         days.map(d => `<th>${d.short}<br>${d.num}</th>`).join("") + 
         `<th>Streak</th>`;
 
-    // 3. Render Table Rows
+    // Render Table Rows
     tableBody.innerHTML = habits.map(habit => {
         const streak = calculateStreak(habit.dates);
         return `
